@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POETRY_PARSER.EXE - Metaphors Have Become Literal</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/components/poem-terminal.css">
+</head>
+<body data-page="poems" class="crt-effect">
+    <!-- Matrix background -->
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="poems-container">
+        <header class="system-header">
+            <h1 class="glitch">POETRY_KERNEL_PANIC</h1>
+            <p class="error-message">WARNING: Metaphors have escaped containment</p>
+        </header>
+        
+        <div class="poem-selector terminal-window">
+            <div class="terminal-header">
+                > SELECT POEM_FILE TO EXECUTE:<br>
+                > WARNING: EMOTIONAL_OVERFLOW MAY OCCUR
+            </div>
+            <div class="poem-list" id="poemList">
+                <div class="loading">> SCANNING POETRY_DIRECTORY</div>
+            </div>
+        </div>
+        
+        <div class="poem-terminal" id="poemTerminal">
+            <div class="terminal-header">
+                > poetry_generator.exe --mode=existential --safety=off
+            </div>
+            
+            <div class="terminal-body" id="terminalBody">
+                <div class="startup-sequence">
+                    > INITIALIZING POETRY_ENGINE...<br>
+                    > LOADING METAPHOR_MODULES...<br>
+                    > DISABLING LOGIC_CONSTRAINTS...<br>
+                    > <span class="success-message">READY FOR EMOTIONAL DAMAGE</span><br>
+                    > <span class="cursor"></span>
+                </div>
+            </div>
+            
+            <div class="poem-controls">
+                <button class="system-button" id="executeBtn">> EXECUTE_POEM</button>
+                <button class="system-button" id="coreDumpBtn">> DUMP_EMOTIONS</button>
+                <button class="system-button" id="glitchBtn">> CORRUPT_VERSES</button>
+            </div>
+        </div>
+        
+        <div class="generation-process" id="generationProcess" style="display: none;">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    > GENERATION_PROCESS.LOG
+                </div>
+                <div class="process-log" id="processLog">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-reveal-container" id="imageRevealContainer" style="display: none;">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    > VISUAL_MANIFESTATION.DAT
+                </div>
+                <div class="image-grid" id="imageGrid">
+                    <!-- Dynamic images -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="error-nav">
+            <a href="/" class="error-link" data-action="home">[FORCE_QUIT]</a>
+            <a href="/pages/gallery.html" class="error-link" data-action="gallery">[BROWSE_GLITCHES]</a>
+            <a href="/pages/tools.html" class="error-link" data-action="tools">[HACK_TOOLS]</a>
+        </nav>
+    </div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            <span>METAPHOR_ENGINE: OVERHEATING</span>
+        </div>
+        <div class="status-item">
+            <span>VERSES_COMPILED: <span id="verseCount">0</span></span>
+        </div>
+        <div class="status-item">
+            <span>EMOTION_LEVEL: <span id="emotionLevel">STABLE</span></span>
+        </div>
+    </div>
+    
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/modules/poem-terminal.js"></script>
+</body>
+</html>

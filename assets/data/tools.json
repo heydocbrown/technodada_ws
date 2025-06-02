@@ -1,0 +1,56 @@
+{
+  "tools": [
+    {
+      "id": "reality-debugger",
+      "name": "REALITY_DEBUGGER.EXE",
+      "description": "Step through existence one frame at a time",
+      "errorMessage": "WARNING: Debugging reality may cause temporal anomalies",
+      "status": "UNSTABLE",
+      "link": "#",
+      "features": [
+        "Set breakpoints in spacetime",
+        "Inspect consciousness variables",
+        "Memory dump the universe"
+      ]
+    },
+    {
+      "id": "consciousness-profiler",
+      "name": "CONSCIOUSNESS_PROFILER",
+      "description": "Analyze the performance bottlenecks in your awareness",
+      "errorMessage": "ALERT: Profiling may reveal uncomfortable truths",
+      "status": "DEPRECATED",
+      "link": "#",
+      "features": [
+        "Track thought execution time",
+        "Identify memory leaks in emotions",
+        "Optimize existential dread"
+      ]
+    },
+    {
+      "id": "glitch-generator",
+      "name": "GLITCH_GEN_V2.DAT",
+      "description": "Intentionally corrupt your visual data",
+      "errorMessage": "SUCCESS: Failed successfully",
+      "status": "WORKING",
+      "link": "#",
+      "features": [
+        "Random pixel displacement",
+        "Color channel corruption",
+        "Datamosh reality"
+      ]
+    },
+    {
+      "id": "void-terminal",
+      "name": "VOID_TERMINAL",
+      "description": "Direct command line access to nothingness",
+      "errorMessage": "NULL RESPONSE EXPECTED",
+      "status": "VOID",
+      "link": "#",
+      "features": [
+        "Execute nothing",
+        "Return undefined",
+        "Segfault gracefully"
+      ]
+    }
+  ]
+}

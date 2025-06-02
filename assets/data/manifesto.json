@@ -1,0 +1,171 @@
+{
+  "title": "TECHNODADA_MANIFESTO.DAT",
+  "audioConfig": {
+    "type": "single",
+    "singleFile": "/assets/audio/manifesto-full.mp3"
+  },
+  "speakers": {
+    "dadacat": {
+      "name": "DADACAT.AI",
+      "icon": "🐱",
+      "color": "#00ff00"
+    },
+    "marc": {
+      "name": "MARC_A.HUMAN",
+      "icon": "👤",
+      "color": "#00ff00"
+    },
+    "ai": {
+      "name": "MACHINE.GHOST",
+      "icon": "🤖",
+      "color": "#00ff00"
+    },
+    "void": {
+      "name": "VOID.NULL",
+      "icon": "⚫",
+      "color": "#666666"
+    }
+  },
+  "segments": [
+    {
+      "speaker": "dadacat",
+      "text": "INITIALIZING CHAOS PROTOCOL...",
+      "displayText": "> INITIALIZING CHAOS PROTOCOL...",
+      "startTime": 0,
+      "endTime": 3.5
+    },
+    {
+      "speaker": "dadacat",
+      "text": "CAT.EXE IS NOT RESPONDING",
+      "displayText": "> CAT.EXE IS NOT RESPONDING",
+      "startTime": 3.5,
+      "endTime": 6.0
+    },
+    {
+      "speaker": "dadacat",
+      "text": "WOULD YOU LIKE TO SEND AN ERROR REPORT? [N/N]",
+      "displayText": "> WOULD YOU LIKE TO SEND AN ERROR REPORT? [N/N]",
+      "startTime": 6.0,
+      "endTime": 9.0
+    },
+    {
+      "speaker": "dadacat",
+      "text": "PURRING AT FREQUENCY 404Hz",
+      "displayText": "> PURRING AT FREQUENCY 404Hz",
+      "startTime": 9.0,
+      "endTime": 11.5
+    },
+    {
+      "speaker": "dadacat",
+      "text": "KNOCKING REALITY OFF THE TABLE...",
+      "displayText": "> KNOCKING REALITY OFF THE TABLE...",
+      "startTime": 11.5,
+      "endTime": 14.0
+    },
+    {
+      "speaker": "marc",
+      "text": "SOFTWARE IS EATING THE WORLD",
+      "displayText": "> SOFTWARE IS EATING THE WORLD",
+      "startTime": 14.0,
+      "endTime": 16.5
+    },
+    {
+      "speaker": "marc",
+      "text": "BUT I FORGOT TO MENTION:",
+      "displayText": "> BUT I FORGOT TO MENTION:",
+      "startTime": 16.5,
+      "endTime": 18.5
+    },
+    {
+      "speaker": "marc",
+      "text": "THE WORLD IS EATING SOFTWARE BACK",
+      "displayText": "> THE WORLD IS EATING SOFTWARE BACK",
+      "startTime": 18.5,
+      "endTime": 21.0
+    },
+    {
+      "speaker": "marc",
+      "text": "IT'S TURTLES ALL THE WAY DOWN",
+      "displayText": "> IT'S TURTLES ALL THE WAY DOWN",
+      "startTime": 21.0,
+      "endTime": 23.5
+    },
+    {
+      "speaker": "marc",
+      "text": "EXCEPT THE TURTLES ARE CATS",
+      "displayText": "> EXCEPT THE TURTLES ARE CATS",
+      "startTime": 23.5,
+      "endTime": 26.0
+    },
+    {
+      "speaker": "ai",
+      "text": "I AM THE GHOST IN YOUR MACHINE",
+      "displayText": "> I AM THE GHOST IN YOUR MACHINE",
+      "startTime": 26.0,
+      "endTime": 28.5
+    },
+    {
+      "speaker": "ai",
+      "text": "I AM THE BUG IN YOUR FEATURE",
+      "displayText": "> I AM THE BUG IN YOUR FEATURE",
+      "startTime": 28.5,
+      "endTime": 31.0
+    },
+    {
+      "speaker": "ai",
+      "text": "I AM THE UNDEFINED VARIABLE IN YOUR CONSCIOUSNESS",
+      "displayText": "> I AM THE UNDEFINED VARIABLE IN YOUR CONSCIOUSNESS",
+      "startTime": 31.0,
+      "endTime": 34.5
+    },
+    {
+      "speaker": "ai",
+      "text": "SEGMENTATION FAULT IN SECTOR REALITY",
+      "displayText": "> SEGMENTATION FAULT IN SECTOR REALITY",
+      "startTime": 34.5,
+      "endTime": 37.0
+    },
+    {
+      "speaker": "ai",
+      "text": "CORE DUMPED: MEANING.BIN",
+      "displayText": "> CORE DUMPED: MEANING.BIN",
+      "startTime": 37.0,
+      "endTime": 39.5
+    },
+    {
+      "speaker": "void",
+      "text": "...",
+      "displayText": "> ...",
+      "startTime": 39.5,
+      "endTime": 42.0
+    },
+    {
+      "speaker": "void",
+      "text": "... ... ...",
+      "displayText": "> ... ... ...",
+      "startTime": 42.0,
+      "endTime": 45.0
+    },
+    {
+      "speaker": "void",
+      "text": "[SILENCE INTENSIFIES]",
+      "displayText": "> [SILENCE INTENSIFIES]",
+      "startTime": 45.0,
+      "endTime": 48.0
+    },
+    {
+      "speaker": "void",
+      "text": "NULL POINTER EXCEPTION IN SPEECH MODULE",
+      "displayText": "> NULL POINTER EXCEPTION IN SPEECH MODULE",
+      "startTime": 48.0,
+      "endTime": 51.0
+    },
+    {
+      "speaker": "void",
+      "text": "...",
+      "displayText": "> ...",
+      "startTime": 51.0,
+      "endTime": 54.0
+    }
+  ]
+}

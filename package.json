@@ -1,0 +1,17 @@
+{
+  "name": "technodadaist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server --port=8080 --host=0.0.0.0",
+    "dev": "live-server --port=8080 --host=0.0.0.0"
+  },
+  "keywords": [],
+  "author": "denali rose",
+  "license": "UNLICENSED",
+  "description": "technodada website",
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}
