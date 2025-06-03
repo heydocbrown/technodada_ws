@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/global.css">
@@ -331,6 +331,235 @@
             0%, 90% { opacity: 1; }
             95% { opacity: 0.3; }
             100% { opacity: 1; }
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 20px;
+                max-width: 95%;
+            }
+            
+            .error-code {
+                font-size: 8rem;
+                margin-bottom: 15px;
+            }
+            
+            .error-message {
+                font-size: 1.2rem;
+                margin: 15px 0;
+            }
+            
+            .sub-error {
+                font-size: 0.8rem;
+                margin: 8px 0;
+            }
+            
+            .system-diagnostics {
+                margin: 20px auto;
+                padding: 15px;
+                max-width: 100%;
+            }
+            
+            .voice-modules {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 10px;
+                justify-content: center;
+            }
+            
+            .voice-module {
+                padding: 8px;
+                min-width: 80px;
+            }
+            
+            .module-icon {
+                font-size: 1.8rem;
+                margin-bottom: 3px;
+            }
+            
+            .module-name {
+                font-size: 0.7rem;
+            }
+            
+            .system-controls {
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            
+            .system-button {
+                padding: 12px 16px;
+                font-size: 0.8rem;
+                min-height: 44px;
+                min-width: 120px;
+            }
+            
+            .output-terminal {
+                font-size: 1rem;
+                max-height: 180px;
+                padding: 12px;
+            }
+            
+            .error-options {
+                gap: 15px;
+                margin-top: 30px;
+            }
+            
+            .error-link {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .status-bar {
+                padding: 8px;
+                font-size: 0.7rem;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .status-item {
+                gap: 5px;
+            }
+            
+            /* Hide some glitch text on mobile for performance */
+            .glitch-text:nth-child(3),
+            .glitch-text:nth-child(4) {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-container {
+                padding: 15px;
+            }
+            
+            .error-code {
+                font-size: 6rem;
+                margin-bottom: 10px;
+            }
+            
+            .error-message {
+                font-size: 1rem;
+                margin: 10px 0;
+            }
+            
+            .sub-error {
+                font-size: 0.75rem;
+            }
+            
+            .system-diagnostics {
+                padding: 12px;
+                margin: 15px auto;
+            }
+            
+            .diagnostic-header {
+                font-size: 0.7rem;
+                margin-bottom: 10px;
+            }
+            
+            .voice-modules {
+                padding: 8px;
+                gap: 8px;
+            }
+            
+            .voice-module {
+                padding: 6px;
+                min-width: 70px;
+            }
+            
+            .voice-module.active::after {
+                font-size: 0.6rem;
+                bottom: -15px;
+            }
+            
+            .module-icon {
+                font-size: 1.5rem;
+            }
+            
+            .module-name {
+                font-size: 0.6rem;
+            }
+            
+            .system-controls {
+                gap: 6px;
+            }
+            
+            .system-button {
+                padding: 10px 12px;
+                font-size: 0.75rem;
+                min-width: 100px;
+            }
+            
+            .output-terminal {
+                font-size: 0.9rem;
+                max-height: 150px;
+                padding: 10px;
+            }
+            
+            .error-options {
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .error-link {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+                min-width: 120px;
+                text-align: center;
+            }
+            
+            .status-bar {
+                padding: 6px;
+                font-size: 0.65rem;
+            }
+            
+            .status-item:not(:first-child) {
+                display: none;
+            }
+            
+            /* Disable matrix background on small mobile for performance */
+            .matrix-bg {
+                display: none;
+            }
+            
+            /* Hide all glitch text on small mobile */
+            .glitch-text {
+                display: none;
+            }
+        }
+        
+        /* Landscape mobile optimization */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body {
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+            
+            .error-code {
+                font-size: 4rem;
+                margin-bottom: 10px;
+            }
+            
+            .error-container {
+                padding: 15px;
+            }
+            
+            .system-diagnostics {
+                margin: 15px auto;
+            }
+            
+            .output-terminal {
+                max-height: 120px;
+            }
+            
+            .status-bar {
+                position: relative;
+                margin-top: 20px;
+            }
         }
         
     </style>
