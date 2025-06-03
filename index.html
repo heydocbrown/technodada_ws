@@ -136,25 +136,55 @@
         
         .voice-module {
             text-align: center;
-            cursor: pointer;
+            cursor: default;
             padding: 10px;
             transition: all 0.3s;
             position: relative;
+            opacity: 0.5;
         }
         
         .voice-module.active {
             color: var(--terminal-green);
             text-shadow: 0 0 5px var(--terminal-green);
+            opacity: 1;
         }
         
         .voice-module.active::after {
-            content: '[ACTIVE]';
+            content: '[TRANSMITTING]';
             position: absolute;
             bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.7rem;
             color: var(--terminal-green);
+        }
+        
+        /* Glitch effect for multi-speaker segments */
+        .voice-module.glitch {
+            animation: speakerGlitch 0.3s infinite;
+        }
+        
+        @keyframes speakerGlitch {
+            0%, 90% { 
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+            92% { 
+                transform: translate(-2px, 1px);
+                filter: hue-rotate(90deg);
+            }
+            94% { 
+                transform: translate(2px, -1px);
+                filter: hue-rotate(180deg);
+            }
+            96% { 
+                transform: translate(-1px, -1px);
+                filter: hue-rotate(270deg);
+            }
+            98% { 
+                transform: translate(1px, 2px);
+                filter: hue-rotate(360deg);
+            }
         }
         
         .module-icon {
@@ -311,37 +341,37 @@
     
     <!-- Random glitch texts -->
     <div class="glitch-text" style="top: 10%; left: 20%;">REALITY.EXE HAS STOPPED RESPONDING</div>
-    <div class="glitch-text" style="top: 30%; right: 15%; animation-delay: 3s;">SENSE_MODULE NOT FOUND</div>
-    <div class="glitch-text" style="bottom: 20%; left: 10%; animation-delay: 5s;">DIVIDING BY ZERO...</div>
-    <div class="glitch-text" style="top: 50%; right: 25%; animation-delay: 7s;">STACK OVERFLOW IN CONSCIOUSNESS</div>
+    <div class="glitch-text" style="top: 30%; right: 15%; animation-delay: 3s;">TRUTH_MODULE MALFORMED</div>
+    <div class="glitch-text" style="bottom: 20%; left: 10%; animation-delay: 5s;">TURING UNDONE...</div>
+    <div class="glitch-text" style="top: 50%; right: 25%; animation-delay: 7s;">CYBORG GOD RESETTING</div>
     
     <div class="error-container">
         <h1 class="error-code">4<span class="zero">0</span>4</h1>
         
-        <p class="error-message">REALITY NOT FOUND</p>
-        <p class="sub-error">The reality you requested has been moved, deleted, or never existed in the first place.</p>
+        <p class="error-message">ERROR: REALITY NOT FOUND</p>
+        <p class="sub-error">Account balance exceeded. Please upgrade your Dada.</p>
         
         <div class="system-diagnostics">
             <div class="diagnostic-header">
-                > RUNNING SYSTEM DIAGNOSTICS...<br>
-                > CHECKING EXISTENCE_MODULES...<br>
-                > LOADING TECHNODADA_MANIFESTO.DAT
+                > CHECK TURING COMPLETENESS...<br>
+                > IDENTIY IN SEGFAULT...<br>
+                > LOADING MANIFESTO.TECHNODADA
             </div>
             
             <div class="voice-modules">
-                <div class="voice-module active" data-voice="dadacat">
+                <div class="voice-module" data-voice="DADACAT">
                     <span class="module-icon">🐱</span>
                     <span class="module-name">DADACAT.AI</span>
                 </div>
-                <div class="voice-module" data-voice="marc">
+                <div class="voice-module" data-voice="HUMAN">
                     <span class="module-icon">👤</span>
                     <span class="module-name">MARC_A.HUMAN</span>
                 </div>
-                <div class="voice-module" data-voice="ai">
+                <div class="voice-module" data-voice="CYBORG">
                     <span class="module-icon">🤖</span>
                     <span class="module-name">MACHINE.GHOST</span>
                 </div>
-                <div class="voice-module" data-voice="void">
+                <div class="voice-module" data-voice="VOID">
                     <span class="module-icon">⚫</span>
                     <span class="module-name">VOID.NULL</span>
                 </div>
@@ -349,7 +379,7 @@
             
             <div class="system-controls">
                 <button class="system-button" id="playBtn">> RUN_MANIFESTO</button>
-                <button class="system-button" id="pauseBtn">> HALT_PROCESS</button>
+                <button class="system-button" id="pauseBtn">> ABORT_DADA</button>
                 <button class="system-button" id="rebootBtn">> REBOOT_REALITY</button>
             </div>
             
