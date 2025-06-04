@@ -66,7 +66,7 @@ function ArtSelector({ onArtSelect }) {
     const handleArtSelect = (event) => {
         const selectedId = event.target.value;
         if (selectedId) {
-            const selectedArt = artData.find(item => item.id === selectedId);
+            const selectedArt = artData.find(item => item.run_id === selectedId);
             if (selectedArt) {
                 onArtSelect(selectedArt);
             }
@@ -133,7 +133,7 @@ function ArtSelector({ onArtSelect }) {
                             &gt; SELECT VISION [{filteredData.length} AVAILABLE]
                         </option>
                         {filteredData.map(item => (
-                            <option key={item.id} value={item.id}>
+                            <option key={item.run_id} value={item.run_id}>
                                 {getDropdownLabel(item)}
                             </option>
                         ))}

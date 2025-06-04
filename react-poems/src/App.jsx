@@ -39,7 +39,7 @@ function App() {
                 />
                 <ImageViewer 
                     imageUrl={selectedArt ? `https://f005.backblazeb2.com/file/td-website/${selectedArt.backblaze_path}` : null}
-                    shouldReveal={typingComplete}
+                    startReveal={selectedArt !== null}
                 />
             </div>
 

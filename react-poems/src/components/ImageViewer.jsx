@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const IMAGE_REVEAL_SPEED = 10; // milliseconds per row
 
-function ImageViewer({ imageUrl, shouldReveal }) {
+function ImageViewer({ imageUrl, startReveal }) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [revealHeight, setRevealHeight] = useState(100); // Start at 100% (hidden)
     const [imageHeight, setImageHeight] = useState(0);
@@ -20,7 +20,7 @@ function ImageViewer({ imageUrl, shouldReveal }) {
 
     // Start reveal when conditions are met
     useEffect(() => {
-        if (shouldReveal && imageLoaded && imageHeight > 0) {
+        if (startReveal && imageLoaded && imageHeight > 0) {
             const rowsPerInterval = 2; // Reveal 2 pixels at a time
             let currentReveal = 100;
 
@@ -53,7 +53,7 @@ function ImageViewer({ imageUrl, shouldReveal }) {
                 }
             };
         }
-    }, [shouldReveal, imageLoaded, imageHeight]);
+    }, [startReveal, imageLoaded, imageHeight]);
 
     const handleImageLoad = (e) => {
         setImageLoaded(true);
@@ -104,7 +104,11 @@ function ImageViewer({ imageUrl, shouldReveal }) {
                         {imageLoaded && (
                             <div 
                                 className="image-reveal-mask" 
-                                style={{ height: `${revealHeight}%` }}
+                                style={{ 
+                                    height: `${revealHeight}%`,
+                                    bottom: 0,
+                                    top: 'auto'
+                                }}
                             />
                         )}
                     </div>
