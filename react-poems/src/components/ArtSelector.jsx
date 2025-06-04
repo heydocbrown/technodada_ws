@@ -41,7 +41,9 @@ function ArtSelector({ onArtSelect }) {
                 throw new Error('Failed to fetch art data');
             }
             const data = await response.json();
-            setArtData(data);
+            // The actual images are in the 'images' key
+            const images = data.images || [];
+            setArtData(images);
             setLoading(false);
         } catch (err) {
             console.error('Error fetching art data:', err);
