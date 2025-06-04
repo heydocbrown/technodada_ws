@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poems Debug</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+        #root {
+            border: 1px solid #0f0;
+            min-height: 100px;
+            padding: 20px;
+        }
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            border-top: 1px solid #0f0;
+            padding: 10px;
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>React Debug Page</h1>
+    <div id="root">Loading React app...</div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            <span>REALITY_ENGINE: PROCESSING</span>
+        </div>
+        <div class="status-item">
+            <span>ART_MODE: <span id="artMode">IDLE</span></span>
+        </div>
+        <div class="status-item">
+            <span>GNOSIS_LEVEL: <span id="gnosisLevel">0%</span></span>
+        </div>
+    </div>
+    
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <script>
+        // Wait for scripts to load
+        window.addEventListener('load', () => {
+            console.log('=== Debug Info ===');
+            console.log('React loaded:', typeof React !== 'undefined');
+            console.log('ReactDOM loaded:', typeof ReactDOM !== 'undefined');
+            console.log('Root element:', document.getElementById('root'));
+            
+            if (typeof ReactDOM !== 'undefined' && ReactDOM.createRoot) {
+                console.log('ReactDOM.createRoot is available');
+            } else {
+                console.error('ReactDOM.createRoot is NOT available');
+            }
+        });
+    </script>
+    
+    <!-- Load the art viewer -->
+    <script src="../assets/js/modules/art-viewer.js"></script>
+</body>
+</html>
