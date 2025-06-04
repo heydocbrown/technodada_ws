@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const TYPING_SPEED = 30; // milliseconds per character
-
-function PromptDisplay({ prompt, onTypingComplete }) {
+function PromptDisplay({ prompt, syncDuration, onTypingComplete }) {
     const [displayedText, setDisplayedText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(false);
@@ -17,11 +15,14 @@ function PromptDisplay({ prompt, onTypingComplete }) {
     }, [prompt]);
 
     useEffect(() => {
-        if (isTyping && prompt && currentIndex < prompt.length) {
+        if (isTyping && prompt && currentIndex < prompt.length && syncDuration) {
+            // Calculate typing speed to finish in syncDuration
+            const typingSpeed = syncDuration / prompt.length;
+            
             const timeout = setTimeout(() => {
                 setDisplayedText(prev => prev + prompt[currentIndex]);
                 setCurrentIndex(prev => prev + 1);
-            }, TYPING_SPEED);
+            }, typingSpeed);
 
             return () => clearTimeout(timeout);
         } else if (isTyping && currentIndex >= prompt.length) {
@@ -30,7 +31,7 @@ function PromptDisplay({ prompt, onTypingComplete }) {
                 onTypingComplete();
             }
         }
-    }, [currentIndex, isTyping, prompt, onTypingComplete]);
+    }, [currentIndex, isTyping, prompt, syncDuration, onTypingComplete]);
 
     if (!prompt) {
         return (
@@ -59,7 +60,7 @@ function PromptDisplay({ prompt, onTypingComplete }) {
                 </div>
                 <div className="prompt-terminal">
                     <div className="prompt-text">
-                        &gt; {displayedText}
+                        &gt; <span dangerouslySetInnerHTML={{__html: displayedText.replace(/\n/g, '<br/>')}} />
                         {isTyping && <span className="typing-cursor"></span>}
                     </div>
                 </div>

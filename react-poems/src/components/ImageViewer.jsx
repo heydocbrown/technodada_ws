@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const IMAGE_REVEAL_SPEED = 10; // milliseconds per row
-
-function ImageViewer({ imageUrl, startReveal }) {
+function ImageViewer({ imageUrl, startReveal, syncDuration }) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [revealHeight, setRevealHeight] = useState(100); // Start at 100% (hidden)
     const [imageHeight, setImageHeight] = useState(0);
@@ -20,12 +18,13 @@ function ImageViewer({ imageUrl, startReveal }) {
 
     // Start reveal when conditions are met
     useEffect(() => {
-        if (startReveal && imageLoaded && imageHeight > 0) {
-            const rowsPerInterval = 2; // Reveal 2 pixels at a time
+        if (startReveal && imageLoaded && imageHeight > 0 && syncDuration) {
+            // Calculate reveal speed to finish in syncDuration
+            const revealSpeed = syncDuration / 100; // 100 steps from 100% to 0%
             let currentReveal = 100;
 
             intervalRef.current = setInterval(() => {
-                currentReveal -= (rowsPerInterval / imageHeight) * 100;
+                currentReveal -= 1; // Decrease by 1% each interval
                 
                 if (currentReveal <= 0) {
                     currentReveal = 0;
@@ -45,7 +44,7 @@ function ImageViewer({ imageUrl, startReveal }) {
                 if (gnosisLevel) {
                     gnosisLevel.textContent = Math.round(100 - currentReveal) + '%';
                 }
-            }, IMAGE_REVEAL_SPEED);
+            }, revealSpeed);
 
             return () => {
                 if (intervalRef.current) {
@@ -53,7 +52,7 @@ function ImageViewer({ imageUrl, startReveal }) {
                 }
             };
         }
-    }, [startReveal, imageLoaded, imageHeight]);
+    }, [startReveal, imageLoaded, imageHeight, syncDuration]);
 
     const handleImageLoad = (e) => {
         setImageLoaded(true);
