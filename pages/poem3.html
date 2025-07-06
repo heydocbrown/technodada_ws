@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DADAIST_GALLERY.EXE - Visual Reality Processor</title>
+    <title>DADAIST_OVERLAY.EXE - Reality Fusion Processor</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -139,84 +139,76 @@
             opacity: 1;
         }
 
+        /* Overlay Viewer Styles */
         .content-display {
             display: flex;
-            gap: 30px;
+            justify-content: center;
             margin-top: 40px;
-            align-items: flex-start;
+            margin-bottom: 40px;
         }
 
-        .prompt-section {
+        .overlay-section {
             flex: 1;
-            min-width: 0;
+            max-width: 800px;
         }
 
-        .image-section {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .prompt-terminal {
+        .overlay-viewer {
+            position: relative;
             background: var(--gray-1);
             border: 1px solid var(--terminal-green);
-            padding: 20px;
-            min-height: 400px;
-            max-height: 600px;
-            overflow-y: auto;
+            overflow: hidden;
+            min-height: 500px;
+            max-height: 700px;
         }
 
-        .prompt-text {
+        .overlay-container {
+            position: relative;
+            width: 100%;
+            min-height: 500px;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
             font-family: 'VT323', monospace;
             font-size: 1.2rem;
             line-height: 1.6;
             color: var(--terminal-green);
             word-wrap: break-word;
+            overflow-y: auto;
+            z-index: 1;
         }
 
-        .typing-cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: var(--terminal-green);
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        .image-viewer {
-            position: relative;
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            overflow: hidden;
-            min-height: 400px;
-        }
-
-        .image-container {
-            position: relative;
+        .overlay-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            object-fit: contain; /* Changed from cover to contain to show full image */
+            object-position: center;
+            background: var(--gray-1); /* Match the container background */
+            z-index: 2;
         }
 
-        .art-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .image-reveal-mask {
+        .image-reveal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             background: var(--gray-1);
-            transition: height 0.05s linear;
+            transition: height 0.1s linear;
+            z-index: 3;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .content-display {
-                flex-direction: column;
-            }
-
             .project-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -231,14 +223,23 @@
                 font-size: 2rem;
             }
 
-            .prompt-terminal {
-                min-height: 300px;
-                max-height: 400px;
-            }
-
             .thumbnail-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 15px;
+            }
+
+            .overlay-viewer {
+                min-height: 400px;
+                max-height: 500px;
+            }
+
+            .overlay-container {
+                min-height: 400px;
+            }
+
+            .overlay-text {
+                font-size: 1rem;
+                padding: 15px;
             }
         }
 
@@ -260,10 +261,10 @@
     <div class="status-bar">
         <div class="status-item">
             <span class="status-indicator"></span>
-            <span>GALLERY_ENGINE: PROCESSING</span>
+            <span>OVERLAY_ENGINE: PROCESSING</span>
         </div>
         <div class="status-item">
-            <span>VIEW_MODE: <span id="artMode">THUMBNAIL</span></span>
+            <span>FUSION_MODE: <span id="artMode">OVERLAY</span></span>
         </div>
         <div class="status-item">
             <span>GNOSIS_LEVEL: <span id="gnosisLevel">0%</span></span>
@@ -271,7 +272,7 @@
     </div>
     
     <!-- React App from Vite Build -->
-    <script type="module" crossorigin src="../assets/react-poems/app2-gytMRL2R.js"></script>
+    <script type="module" crossorigin src="../assets/react-poems/app3-Ct1mtseA.js"></script>
     <link rel="stylesheet" href="../assets/react-poems/App-CZvmHcqN.css">    
     <!-- Matrix background animation -->
     <script>
