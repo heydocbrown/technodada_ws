@@ -126,6 +126,95 @@
             transition: height 0.05s linear;
         }
 
+        /* Mode selector styles */
+        .mode-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .mode-button {
+            min-width: 200px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            background: var(--gray-1);
+            border: 2px solid var(--gray-3);
+            color: var(--terminal-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'VT323', monospace;
+            text-transform: uppercase;
+        }
+
+        .mode-button:hover {
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .mode-button.active {
+            background: var(--terminal-green);
+            color: var(--bg-black);
+            border-color: var(--terminal-green);
+        }
+
+        /* Interactive prompt styles */
+        .interactive-dadacat-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .prompt-form {
+            width: 100%;
+        }
+
+        .prompt-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .prompt-input {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            background: var(--gray-1);
+            border: 1px solid var(--terminal-green);
+            color: var(--terminal-green);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .prompt-input::placeholder {
+            color: var(--gray-3);
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .generate-button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background: var(--gray-1);
+            border: 2px solid var(--terminal-green);
+            color: var(--terminal-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'VT323', monospace;
+            text-transform: uppercase;
+        }
+
+        .generate-button:hover:not(:disabled) {
+            background: var(--terminal-green);
+            color: var(--bg-black);
+        }
+
+        .generate-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .content-display {
@@ -139,6 +228,24 @@
             .prompt-terminal {
                 min-height: 300px;
                 max-height: 400px;
+            }
+
+            .mode-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mode-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .prompt-input-container {
+                flex-direction: column;
+            }
+
+            .prompt-input, .generate-button {
+                width: 100%;
             }
         }
     </style>
@@ -165,7 +272,7 @@
     
     <!-- React App from Vite Build -->
     <!-- Will be updated after build -->
-    <script type="module" crossorigin src="../assets/react-poems/appDadaCat-DCRF2bSQ.js"></script>
+    <script type="module" crossorigin src="../assets/react-poems/appDadaCat-lzX07WPt.js"></script>
     
     <!-- Matrix background animation -->
     <script>

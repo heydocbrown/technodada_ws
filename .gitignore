@@ -1,1 +1,21 @@
+# Environment variables
 .env
+docker.env
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Build artifacts
+assets/react-poems/*.js
+assets/react-poems/*.map
+
+# Legacy configs
+.live-server.json
+
+# OS files
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
