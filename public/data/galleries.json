@@ -1,0 +1,82 @@
+{
+  "collections": [
+    {
+      "id": "triptych-series",
+      "title": "TRIPLE_FAULT_EXCEPTION",
+      "description": "Three-part visual segmentation faults",
+      "type": "triptych",
+      "errorCode": "0xTR1P",
+      "displayMode": "static",
+      "items": [
+        {
+          "id": "tri-001",
+          "title": "Reality Buffer Overflow",
+          "errorMessage": "REALITY_BUFFER exceeded maximum capacity",
+          "images": [
+            "https://placeholder.url/tri-001-left.jpg",
+            "https://placeholder.url/tri-001-center.jpg",
+            "https://placeholder.url/tri-001-right.jpg"
+          ],
+          "transition": "glitch-morph"
+        },
+        {
+          "id": "tri-002",
+          "title": "Consciousness Fork Bomb",
+          "errorMessage": "Too many consciousness instances spawned",
+          "images": [
+            "https://placeholder.url/tri-002-left.jpg",
+            "https://placeholder.url/tri-002-center.jpg",
+            "https://placeholder.url/tri-002-right.jpg"
+          ],
+          "transition": "fade"
+        }
+      ]
+    },
+    {
+      "id": "sequence-series",
+      "title": "INFINITE_LOOP_DETECTED",
+      "description": "Morphing sequences that never terminate",
+      "type": "sequence",
+      "errorCode": "0xL00P",
+      "items": [
+        {
+          "id": "seq-001",
+          "title": "Recursive Self Portrait",
+          "errorMessage": "Stack overflow in self-reference",
+          "images": [
+            "https://placeholder.url/seq-001-1.jpg",
+            "https://placeholder.url/seq-001-2.jpg",
+            "https://placeholder.url/seq-001-3.jpg",
+            "https://placeholder.url/seq-001-4.jpg"
+          ],
+          "timing": {
+            "duration": 2000,
+            "transition": 500,
+            "loop": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "glitch-archive",
+      "title": "CORRUPTED_MEMORY_DUMP",
+      "description": "Single images from failed reality renders",
+      "type": "grid",
+      "errorCode": "0xDUMP",
+      "items": [
+        {
+          "id": "glitch-001",
+          "title": "Kernel Panic at Dawn",
+          "errorMessage": "KERNEL_PANIC: Universe not responding",
+          "images": ["https://placeholder.url/glitch-001.jpg"]
+        },
+        {
+          "id": "glitch-002",
+          "title": "Blue Screen of Life",
+          "errorMessage": "EXISTENCE.DLL not found",
+          "images": ["https://placeholder.url/glitch-002.jpg"]
+        }
+      ]
+    }
+  ]
+}

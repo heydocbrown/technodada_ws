@@ -1,0 +1,45 @@
+{
+  "poems": [
+    {
+      "id": "chimera-001",
+      "title": "Digital Chimera",
+      "text": "In silicon dreams, the chimera wakes\nPixels shifting, reality breaks\nBetween the ones and zeros lies\nA creature born of compromised files",
+      "generationProcess": {
+        "prompts": [
+          "Initial prompt: Digital mythological creature",
+          "Refined: Glitched chimera in cyberpunk style",
+          "Final: Corrupted data visualization as living entity"
+        ],
+        "model": "DALL-E",
+        "iterations": 3
+      },
+      "images": [
+        {
+          "url": "https://placeholder.url/chimera-1.jpg",
+          "caption": "Initial generation",
+          "revealDelay": 0
+        },
+        {
+          "url": "https://placeholder.url/chimera-2.jpg",
+          "caption": "Glitch iteration",
+          "revealDelay": 2000
+        }
+      ],
+      "displayMode": "terminal-reveal",
+      "created": "2024-01-15"
+    },
+    {
+      "id": "void-speaks",
+      "title": "When the Void Speaks Back",
+      "text": "NULL POINTER EXCEPTION IN LINE 1\nSEGFAULT IN THE SOUL\nTHE VOID ASKED FOR INPUT\nI GAVE IT EVERYTHING",
+      "generationProcess": {
+        "prompts": ["void speaking in error messages"],
+        "model": "Human",
+        "iterations": 1
+      },
+      "images": [],
+      "displayMode": "glitch-in",
+      "created": "2024-02-01"
+    }
+  ]
+}

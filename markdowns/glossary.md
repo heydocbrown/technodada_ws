@@ -200,39 +200,50 @@ Opening browser console shows:
 ### Data Sources
 | Content Type | Location |
 |--------------|----------|
-| Manifesto Data | /assets/data/manifesto.json |
-| Poems Data | /assets/data/poems.json |
-| Gallery Data | /assets/data/galleries.json |
-| Tools Data | /assets/data/tools.json |
+| Manifesto Data | /data/manifesto.json |
+| Poems Data | /data/poems.json |
+| Gallery Data | /data/galleries.json |
+| Tools Data | /data/tools.json |
 | Live Art Data | https://f005.backblazeb2.com/file/td-website/index.json |
 
-### Traditional JavaScript
+### Static Assets (Vite Public Directory)
 | Content Type | Location |
 |--------------|----------|
-| Main Script | /assets/js/main.js |
-| Global Styles | /assets/css/global.css |
+| Main Script | /js/main.js |
+| Global Styles | /css/global.css |
+| Gallery Styles | /css/components/gallery.css |
+| Terminal Styles | /css/components/poem-terminal.css |
 
-### React Applications
-| App | Entry Point | Build Output |
-|-----|-------------|--------------|
-| Text Viewer | /react-poems/src/main.jsx | /assets/react-poems/main-*.js |
-| Gallery Viewer | /react-poems/src/main2.jsx | /assets/react-poems/app2-*.js |
-| Fusion Viewer | /react-poems/src/main3.jsx | /assets/react-poems/app3-*.js |
+### React Applications (Vite Structure)
+| App | Entry Point | HTML Page |
+|-----|-------------|-----------|
+| Text Viewer | /src/main.jsx | poems.html |
+| Gallery Viewer | /src/main.jsx | poem2.html |
+| Fusion Viewer | /src/main.jsx | poem3.html |
+| DadaCat Viewer | /src/main.jsx | tsdadacat.html |
 
-### React Components
-| Component | Purpose | Used In |
-|-----------|---------|---------|
-| ArtSelector.jsx | Dropdown artwork selection | poems.html |
-| ThumbnailSelector.jsx | Grid-based visual selection | poem2.html, poem3.html |
-| PromptDisplay.jsx | Character-by-character typing | All React apps |
-| ImageViewer.jsx | Progressive image reveal | poems.html, poem2.html |
-| OverlayViewer.jsx | Text/image overlay fusion | poem3.html |
+### React Components (New Structure)
+| Component | Location | Purpose | Used In |
+|-----------|----------|---------|---------|
+| App.jsx | /src/apps/ | Text dropdown viewer | poems.html |
+| App2.jsx | /src/apps/ | Thumbnail gallery viewer | poem2.html |
+| App3.jsx | /src/apps/ | Overlay fusion viewer | poem3.html |
+| AppDadaCat.jsx | /src/apps/ | Interactive DadaCat | tsdadacat.html |
+| ArtSelector.jsx | /src/components/ | Dropdown artwork selection | poems.html |
+| ThumbnailSelector.jsx | /src/components/ | Grid-based visual selection | poem2.html, poem3.html |
+| PromptDisplay.jsx | /src/components/ | Character-by-character typing | All React apps |
+| ImageViewer.jsx | /src/components/ | Progressive image reveal | poems.html, poem2.html |
+| OverlayViewer.jsx | /src/components/ | Text/image overlay fusion | poem3.html |
+| InteractiveDadaCatPipeline.jsx | /src/components/ | AI generation interface | tsdadacat.html |
 
-### Build System
+### Build System (Vite)
 | File | Purpose |
 |------|---------|
-| /react-poems/vite.config.js | Multi-entry build configuration |
-| /scripts/deploy-react.sh | Automated build and deployment |
+| /vite.config.js | Multi-page Vite configuration |
+| /src/main.jsx | Consolidated React entry point |
+| /src/config/pipelineConfig.js | dadacat-lambda-pipeline setup |
+| /docker-compose.yml | Development environment |
+| /Dockerfile | Container configuration |
 
 ## Error Codes Reference
 

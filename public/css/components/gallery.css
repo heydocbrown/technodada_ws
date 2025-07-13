@@ -1,0 +1,339 @@
+/* GALLERY COMPONENT STYLES */
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.system-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.system-header h1 {
+    font-size: 3rem;
+    color: var(--terminal-green);
+    text-shadow: 0 0 10px var(--terminal-green);
+    margin-bottom: 10px;
+}
+
+/* Gallery Controls */
+.gallery-controls {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px;
+    background: var(--bg-black);
+    border: 1px dashed var(--gray-3);
+    justify-content: center;
+}
+
+.view-mode {
+    text-transform: uppercase;
+    min-width: 140px;
+}
+
+/* Gallery Filter */
+.gallery-filter {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter-label {
+    color: var(--gray-4);
+    font-size: 0.9rem;
+}
+
+.system-select {
+    background: var(--bg-black);
+    border: 1px solid var(--gray-3);
+    color: var(--terminal-green);
+    padding: 5px 10px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.system-select:focus {
+    outline: 1px solid var(--terminal-green);
+}
+
+/* Gallery Content */
+.gallery-content {
+    margin-top: 30px;
+    min-height: 400px;
+}
+
+/* Loading State */
+.loading-message {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 20px;
+    border: 1px solid var(--terminal-green);
+    margin: 20px auto;
+    background: var(--bg-black);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--terminal-green);
+    width: 0;
+    animation: loadProgress 2s ease-out forwards;
+}
+
+@keyframes loadProgress {
+    to { width: 100%; }
+}
+
+/* Gallery Items - Triptych Mode */
+.gallery-item.triptych {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+    border: 1px solid var(--gray-2);
+    background: var(--gray-1);
+    padding: 20px;
+    position: relative;
+}
+
+.gallery-item.triptych::before {
+    content: attr(data-error);
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: var(--gray-1);
+    padding: 0 10px;
+    color: var(--error-red);
+    font-size: 0.8rem;
+}
+
+/* Gallery Items - Sequence Mode */
+.gallery-item.sequence {
+    margin-bottom: 40px;
+    border: 1px solid var(--gray-2);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sequence-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.sequence-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.sequence-image.active {
+    opacity: 1;
+}
+
+/* Gallery Items - Grid Mode */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item.grid {
+    border: 1px solid var(--gray-2);
+    background: var(--gray-1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.gallery-item.grid:hover {
+    border-color: var(--terminal-green);
+    transform: translate(2px, -2px);
+    box-shadow: -2px 2px 0 var(--terminal-green);
+}
+
+/* Gallery Images */
+.gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0.9);
+    transition: filter 0.3s;
+}
+
+.gallery-image:hover {
+    filter: brightness(1.1) hue-rotate(5deg);
+}
+
+.gallery-item.grid .gallery-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Item Metadata */
+.item-metadata {
+    padding: 15px;
+    background: var(--bg-black);
+    border-top: 1px solid var(--gray-2);
+}
+
+.item-title {
+    color: var(--terminal-green);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.item-error {
+    color: var(--gray-4);
+    font-size: 0.8rem;
+}
+
+/* Image Viewer Modal */
+.image-viewer-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+}
+
+.image-viewer-modal.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: var(--gray-1);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--terminal-green);
+}
+
+.modal-title {
+    color: var(--terminal-green);
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+}
+
+.close-button {
+    background: none;
+    border: 1px solid var(--gray-3);
+    color: var(--gray-4);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    border-color: var(--error-red);
+    color: var(--error-red);
+}
+
+.modal-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+#modalImage {
+    max-width: 90%;
+    max-height: 80vh;
+    border: 1px solid var(--gray-2);
+}
+
+.image-metadata {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    background: var(--gray-1);
+    border: 1px solid var(--terminal-green);
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+.image-metadata p {
+    margin: 5px 0;
+    color: var(--gray-4);
+}
+
+.image-metadata span {
+    color: var(--terminal-green);
+}
+
+/* Error Navigation */
+.error-nav {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Glitch effects for corrupted images */
+@keyframes imageGlitch {
+    0%, 90%, 100% { 
+        filter: hue-rotate(0deg) saturate(100%); 
+        transform: translate(0);
+    }
+    92% { 
+        filter: hue-rotate(180deg) saturate(150%); 
+        transform: translate(-2px, 1px);
+    }
+    94% { 
+        filter: hue-rotate(90deg) saturate(200%); 
+        transform: translate(2px, -1px);
+    }
+    96% { 
+        filter: hue-rotate(-90deg) saturate(100%); 
+    }
+}
+
+.gallery-image.glitching {
+    animation: imageGlitch 3s infinite;
+}
+
+/* Sequence controls */
+.sequence-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sequence-indicator {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--gray-3);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sequence-indicator.active {
+    background: var(--terminal-green);
+    border-color: var(--terminal-green);
+    box-shadow: 0 0 5px var(--terminal-green);
+}
