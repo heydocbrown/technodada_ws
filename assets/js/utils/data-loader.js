@@ -21,7 +21,7 @@ export async function loadJSON(path) {
 
 // Load manifesto data
 export async function loadManifestoData() {
-    const result = await loadJSON('/assets/data/manifesto.json');
+    const result = await loadJSON('/data/manifesto.json');
     if (!result.success) {
         console.error('MANIFESTO_LOAD_FAILURE: Reality may be undefined');
         return getDefaultManifesto();
@@ -31,7 +31,7 @@ export async function loadManifestoData() {
 
 // Load poems data
 export async function loadPoemsData() {
-    const result = await loadJSON('/assets/data/poems.json');
+    const result = await loadJSON('/data/poems.json');
     if (!result.success) {
         console.error('POETRY_MODULE_CRASHED: Metaphors have escaped');
         return { poems: [] };
@@ -41,7 +41,7 @@ export async function loadPoemsData() {
 
 // Load gallery data
 export async function loadGalleryData() {
-    const result = await loadJSON('/assets/data/galleries.json');
+    const result = await loadJSON('/data/galleries.json');
     if (!result.success) {
         console.error('GALLERY_BUFFER_OVERFLOW: Images have achieved consciousness');
         return { collections: [] };
@@ -51,7 +51,7 @@ export async function loadGalleryData() {
 
 // Load tools data
 export async function loadToolsData() {
-    const result = await loadJSON('/assets/data/tools.json');
+    const result = await loadJSON('/data/tools.json');
     if (!result.success) {
         console.error('TOOLS_EXCEPTION: Hammers are now made of jello');
         return { tools: [] };

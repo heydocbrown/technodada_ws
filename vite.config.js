@@ -9,6 +9,10 @@ export default defineConfig({
     port: 8080,
     host: true
   },
+  preview: {
+    port: 8080,
+    host: true
+  },
   build: {
     rollupOptions: {
       input: {
@@ -21,21 +25,20 @@ export default defineConfig({
       },
       output: {
         // Chunk React apps separately
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('dadacat-lambda-pipeline')) {
-              return 'dadacat-pipeline';
-            }
-            if (id.includes('react')) {
-              return 'react-vendor';
-            }
-            return 'vendor';
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'dadacat-pipeline': ['dadacat-lambda-pipeline']
         }
       }
     }
   },
   optimizeDeps: {
     include: ['dadacat-lambda-pipeline', 'react', 'react-dom']
+  },
+  resolve: {
+    alias: {
+      'react': 'react',
+      'react-dom': 'react-dom'
+    }
   }
 })
