@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import ArtSelectorDadaCat from './components/ArtSelectorDadaCat';
-import InteractiveDadaCat from './components/InteractiveDadaCat';
+import InteractiveDadaCatPipeline from './components/InteractiveDadaCatPipeline';
 import PromptDisplay from './components/PromptDisplay';
 import ImageViewer from './components/ImageViewer';
+import pipelineConfig from './config/pipelineConfig';
 import './App.css';
 
 function AppDadaCat() {
@@ -56,7 +57,10 @@ function AppDadaCat() {
             {mode === 'browse' ? (
                 <ArtSelectorDadaCat onArtSelect={handleArtSelect} />
             ) : (
-                <InteractiveDadaCat onGenerate={handleArtSelect} />
+                <InteractiveDadaCatPipeline 
+                    onGenerate={handleArtSelect}
+                    config={pipelineConfig}
+                />
             )}
 
             <div className="content-display">

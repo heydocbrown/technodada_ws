@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const dadacatRouter = require('./dadacatEndpoint');
+// Use the pipeline-enabled endpoint
+const dadacatRouter = require('./dadacatEndpointPipeline');
 
 // Load environment variables
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });

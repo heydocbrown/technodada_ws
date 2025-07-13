@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
-// https://vite.dev/config/
+// Updated configuration for dadacat-lambda-pipeline integration
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -53,6 +53,17 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       }
+    }
+  },
+  // Handle any Node.js polyfills if required by the package
+  resolve: {
+    alias: {
+      // Add polyfills only if you get errors about missing Node.js modules
+      // Uncomment these lines if needed:
+      // 'stream': 'stream-browserify',
+      // 'buffer': 'buffer',
+      // 'util': 'util',
+      // 'process': 'process/browser',
     }
   }
 })

@@ -123,7 +123,7 @@ async function generateImage(prompt, options = {}) {
  */
 async function uploadToB2(imageBuffer, filename) {
     try {
-        const key = `interactive/${filename}`;
+        const key = `ws_generated/${filename}`;
         
         const command = new PutObjectCommand({
             Bucket: 'td-website',
