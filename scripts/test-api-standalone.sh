@@ -136,7 +136,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }
 
 const s3Client = new S3Client({
     region: 'dummy',
-    endpoint: 'https://s3.us-east-002.backblazeb2.com',
+    endpoint: 'https://s3.us-east-005.backblazeb2.com',
     credentials: {
         accessKeyId: process.env.B2_KEY_ID,
         secretAccessKey: process.env.B2_APPLICATION_KEY
@@ -152,6 +152,8 @@ async function test() {
         result.Buckets.forEach(b => console.log('  -', b.Name));
     } catch (error) {
         console.error('✗ Backblaze B2 error:', error.message);
+        console.error('  Error code:', error.Code);
+        console.error('  Full error:', JSON.stringify(error, null, 2));
         process.exit(1);
     }
 }
@@ -185,18 +187,43 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     
     async function testFullFlow() {
         try {
-            console.log('📤 Invoking DadaCat Lambda...');
-            const lambdaParams = {
-                FunctionName: process.env.AWS_DADACAT_LAMBDA,
-                InvocationType: 'RequestResponse',
-                Payload: JSON.stringify({ prompt: 'test prompt for debugging' })
+            console.log('📤 Calling DadaCat REST API...');
+            const testMessage = 'test prompt for debugging';
+            const data = JSON.stringify({ message: testMessage });
+            
+            const https = require('https');
+            const options = {
+                hostname: 'o24uakhozi.execute-api.us-east-2.amazonaws.com',
+                path: '/Dev',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': data.length
+                }
             };
             
-            const lambdaResult = await lambda.invoke(lambdaParams).promise();
-            const dadacatResponse = JSON.parse(lambdaResult.Payload);
+            const dadacatResponse = await new Promise((resolve, reject) => {
+                const req = https.request(options, (res) => {
+                    let responseData = '';
+                    res.on('data', (chunk) => { responseData += chunk; });
+                    res.on('end', () => {
+                        if (res.statusCode === 200) {
+                            const parsed = JSON.parse(responseData);
+                            resolve(parsed.response);
+                        } else {
+                            reject(new Error('HTTP ' + res.statusCode + ': ' + responseData));
+                        }
+                    });
+                });
+                req.on('error', reject);
+                req.write(data);
+                req.end();
+            });
+            
             console.log('✓ DadaCat response:', dadacatResponse.substring(0, 100) + '...');
             
-            console.log('\\n🎨 Generating image with DALL-E...');
+            console.log('');
+            console.log('🎨 Generating image with DALL-E...');
             const imageResponse = await openai.images.generate({
                 model: 'dall-e-3',
                 prompt: dadacatResponse.substring(0, 500),
@@ -210,11 +237,59 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
             console.log('✓ Image generated successfully');
             console.log('  Revised prompt:', imageResponse.data[0].revised_prompt.substring(0, 100) + '...');
             
-            console.log('\\n☁️  Testing B2 upload (without actually uploading)...');
-            console.log('✓ All components working!');
+            console.log('');
+            console.log('☁️  Testing B2 upload...');
+            const imageBuffer = Buffer.from(imageResponse.data[0].b64_json, 'base64');
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = 'test_dadacat_' + timestamp + '.png';
+            
+            const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+            const s3Client = new S3Client({
+                region: 'dummy',
+                endpoint: 'https://s3.us-east-005.backblazeb2.com',
+                credentials: {
+                    accessKeyId: process.env.B2_KEY_ID,
+                    secretAccessKey: process.env.B2_APPLICATION_KEY
+                }
+            });
+            
+            const command = new PutObjectCommand({
+                Bucket: 'td-website',
+                Key: 'ws_generated/' + filename,
+                Body: imageBuffer,
+                ContentType: 'image/png'
+            });
+            
+            const result = await s3Client.send(command);
+            console.log('✓ Image uploaded to B2 successfully');
+            console.log('  File:', 'ws_generated/' + filename);
+            console.log('  ETag:', result.ETag);
+            console.log('  Location:', result.Location);
+            
+            // Verify the file exists by trying to list it
+            console.log('');
+            console.log('🔍 Verifying upload...');
+            const { ListObjectsV2Command } = require('@aws-sdk/client-s3');
+            const listCommand = new ListObjectsV2Command({
+                Bucket: 'td-website',
+                Prefix: 'ws_generated/' + filename,
+                MaxKeys: 1
+            });
+            
+            const listResult = await s3Client.send(listCommand);
+            if (listResult.Contents && listResult.Contents.length > 0) {
+                console.log('✓ File verified on B2:', listResult.Contents[0].Key);
+                console.log('  Size:', listResult.Contents[0].Size, 'bytes');
+            } else {
+                console.log('✗ File NOT found on B2 after upload');
+            }
+            
+            console.log('');
+            console.log('🎉 Complete flow working! DadaCat → DALL-E → B2 upload');
             
         } catch (error) {
-            console.error('\\n✗ Error in flow:', error.message);
+            console.error('');
+            console.error('✗ Error in flow:', error.message);
             if (error.response) {
                 console.error('  Response data:', error.response.data);
             }
