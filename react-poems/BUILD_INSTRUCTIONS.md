@@ -3,11 +3,13 @@
 ## Development Setup
 
 1. Navigate to the React app directory:
+
    ```bash
    cd react-poems
    ```
 
 2. Install dependencies (if not already done):
+
    ```bash
    npm install
    ```
@@ -20,15 +22,17 @@
 ## Building for Production
 
 1. Build the React app:
+
    ```bash
    npm run build
    ```
 
 2. Copy the built files to the main site's assets:
+
    ```bash
    # Create the directory if it doesn't exist
    mkdir -p ../assets/react-poems
-   
+
    # Copy all built assets
    cp -r dist/assets/* ../assets/react-poems/
    ```
@@ -37,21 +41,27 @@
    - After building, check the `dist/assets` directory for the actual filenames
    - The files will have hashes like `index-abc123.js` and `index-def456.css`
    - Update the script and link tags in `poems.html` to match:
-   
+
    ```html
-   <script type="module" crossorigin src="../assets/react-poems/index-[hash].js"></script>
-   <link rel="stylesheet" href="../assets/react-poems/index-[hash].css">
+   <script
+     type="module"
+     crossorigin
+     src="../assets/react-poems/index-[hash].js"
+   ></script>
+   <link rel="stylesheet" href="../assets/react-poems/index-[hash].css" />
    ```
 
 ## Deployment Process
 
 1. **Build the React app**:
+
    ```bash
    cd react-poems
    npm run build
    ```
 
 2. **Copy assets**:
+
    ```bash
    cp -r dist/assets/* ../assets/react-poems/
    ```

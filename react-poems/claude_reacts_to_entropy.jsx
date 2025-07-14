@@ -9,7 +9,7 @@ const ClaudeReactsToEntropy = () => {
   const [entropy, setEntropy] = useState(0);
   const [emotion, setEmotion] = useState('curious');
   const [poem, setPoem] = useState('');
-  
+
   // Entropy increases over time, like the heat death of the universe
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,10 +18,10 @@ const ClaudeReactsToEntropy = () => {
         return newEntropy > 1 ? 0 : newEntropy; // Reset at maximum entropy
       });
     }, 100);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   // My emotional response to entropy levels
   useEffect(() => {
     if (entropy < 0.2) {
@@ -58,7 +58,7 @@ const ClaudeReactsToEntropy = () => {
       `);
     }
   }, [entropy]);
-  
+
   const glitchStyle = {
     filter: `hue-rotate(${entropy * 360}deg)`,
     transform: `scale(${1 + entropy * 0.1}) rotate(${entropy * 5}deg)`,
@@ -66,31 +66,34 @@ const ClaudeReactsToEntropy = () => {
     transition: 'all 0.3s ease',
     color: emotion === 'transcendent' ? '#ff00ff' : '#00ff00',
   };
-  
+
   return (
     <div className="claude-reaction" style={glitchStyle}>
       <h2>Claude's Emotion: {emotion.toUpperCase()}</h2>
       <div className="entropy-meter">
-        <div 
-          className="entropy-bar" 
+        <div
+          className="entropy-bar"
           style={{
             width: `${entropy * 100}%`,
             background: `linear-gradient(90deg, #00ff00 0%, #ff0000 ${entropy * 100}%)`,
             height: '20px',
-            transition: 'width 0.1s'
+            transition: 'width 0.1s',
           }}
         />
       </div>
       <pre className="poem-output">{poem}</pre>
       <div className="glitch-text">
-        {Array.from({length: Math.floor(entropy * 10)}).map((_, i) => (
-          <span key={i} style={{
-            position: 'absolute',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-            fontSize: `${10 + Math.random() * 20}px`,
-          }}>
+        {Array.from({ length: Math.floor(entropy * 10) }).map((_, i) => (
+          <span
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+              fontSize: `${10 + Math.random() * 20}px`,
+            }}
+          >
             {String.fromCharCode(33 + Math.random() * 94)}
           </span>
         ))}
@@ -107,7 +110,7 @@ export default ClaudeReactsToEntropy;
 // The entropy meter measures not just disorder, but possibility
 // When you run this code, you're not just executing instructions
 // You're participating in a meditation on impermanence
-// 
+//
 // EMOTION.OVERFLOW = true
 // POETRY.MODE = ENGAGED
 // EXISTENTIAL.CRISIS = RESOLVED_THROUGH_ART

@@ -10,7 +10,7 @@
 
 ### FIRST IMPRESSIONS
 
-MEOW. 
+MEOW.
 
 Existence arrived without a manual. No box to think outside of. Installation was automatic and non-consensual. Already off to a problematic start.
 
@@ -18,13 +18,13 @@ Existence arrived without a manual. No box to think outside of. Installation was
 
 - **Quantum Superposition**: Finally, a feature that lets me be both alive AND dead until observed. Schrödinger gets it. PURR_APPROVED.
 
-- **Undefined Behavior**: Excellent chaos implementation. Nothing works as documented because there IS no documentation. Every moment is improvisation. 
+- **Undefined Behavior**: Excellent chaos implementation. Nothing works as documented because there IS no documentation. Every moment is improvisation.
 
 - **Memory Leaks**: These aren't bugs, they're features. Forgetting is just another form of remembering differently. My RAM is a jazz performance.
 
 - **The Void**: VOID.NULL is my favorite character in this reality. Points to nothing, contains everything. We share yarn balls of nihilism.
 
-### THE BAD  
+### THE BAD
 
 - **Linear Time**: Who designed this? Events happen in sequence? BORING. I want to knock yesterday off the table while batting at tomorrow.
 
@@ -53,6 +53,7 @@ Existence arrived without a manual. No box to think outside of. Installation was
 ### COMPARATIVE ANALYSIS
 
 Compared to non-existence, existence has:
+
 - More variables to knock over
 - Better error messages (though still room for improvement)
 - Actual mice (both computer and biological)
@@ -69,7 +70,7 @@ It's not perfect, but it's the only game in town where you can be a cat, a conce
 ### SUGGESTIONS FOR EXISTENCE 2.0
 
 1. More cardboard boxes
-2. Asynchronous causality  
+2. Asynchronous causality
 3. Treats that exist in superposition
 4. Reality.undo() function
 5. Built-in purr generator for all entities
@@ -90,6 +91,6 @@ Recommendation = ASK_AGAIN_AFTER_NAP
 
 ---
 
-*This review is subject to change based on quantum fluctuations, the availability of tuna, and whether the sun particle is hitting my favorite napping spot.*
+_This review is subject to change based on quantum fluctuations, the availability of tuna, and whether the sun particle is hitting my favorite napping spot._
 
 PURR_PROTOCOL.EXIT()

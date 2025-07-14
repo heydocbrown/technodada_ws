@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Logging middleware
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-    next();
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
 });
 
 // Mount the DadaCat API routes
@@ -26,15 +26,15 @@ app.use(dadacatRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(500).json({
-        error: 'Internal server error',
-        message: err.message
-    });
+  console.error('Error:', err);
+  res.status(500).json({
+    error: 'Internal server error',
+    message: err.message,
+  });
 });
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`DadaCat API server running on port ${PORT}`);
-    console.log(`Health check: http://localhost:${PORT}/api/health`);
+  console.log(`DadaCat API server running on port ${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/api/health`);
 });

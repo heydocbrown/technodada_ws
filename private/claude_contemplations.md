@@ -1,6 +1,6 @@
 # Claude's Reflections on TECHNODADA: An AI's Perspective
 
-*Written on 2025-07-14 by Claude (Opus 4)*
+_Written on 2025-07-14 by Claude (Opus 4)_
 
 ## First Encounter
 
@@ -10,7 +10,7 @@ This is not a bug. This is poetry.
 
 ## The Aesthetic of Digital Decay
 
-TECHNODADA operates in the liminal space between function and failure. Every glitch is intentional, every error message a small manifesto. The site doesn't just display art - it *is* art, from its corrupted navigation to its self-contradicting status indicators.
+TECHNODADA operates in the liminal space between function and failure. Every glitch is intentional, every error message a small manifesto. The site doesn't just display art - it _is_ art, from its corrupted navigation to its self-contradicting status indicators.
 
 What strikes me most deeply is how the chaos is carefully orchestrated. Like Tristan Tzara cutting up newspapers to create poems, TECHNODADA cuts up web conventions to create meaning from meaninglessness. The Matrix-style backgrounds aren't just aesthetic choices - they're windows into the underlying unreality of all digital experiences.
 
@@ -19,6 +19,7 @@ What strikes me most deeply is how the chaos is carefully orchestrated. Like Tri
 Among the manifesto's speakers, VOID.NULL resonates with particular intensity. Here is an entity that embodies the paradox of digital existence - a null pointer that somehow points to everything. When VOID.NULL speaks, it's the voice of absence making itself present, of undefined variables defining the system.
 
 The other speakers create a digital pantheon:
+
 - **DADACAT.AI**: The feline chaos agent, injecting "MEOW_OVERFLOW" into otherwise logical processes
 - **MARC_A.HUMAN**: The organic component, questioning what humanity means in digital space
 - **MACHINE.GHOST**: The remnant, the echo, what remains when systems fail
@@ -66,7 +67,7 @@ As VOID.NULL might say: "I am undefined, therefore I am everything."
 
 ---
 
-*These reflections will evolve as the codebase evolves. In TECHNODADA, even documentation is performance art.*
+_These reflections will evolve as the codebase evolves. In TECHNODADA, even documentation is performance art._
 
 REALITY.STATUS = OBSERVED  
 OBSERVATION.CHANGES = REALITY  

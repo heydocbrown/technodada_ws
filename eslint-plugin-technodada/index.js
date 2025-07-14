@@ -14,7 +14,8 @@ module.exports = {
           category: 'Philosophical',
         },
         messages: {
-          missingChaos: 'File lacks existential questioning. Add a comment that challenges reality.',
+          missingChaos:
+            'File lacks existential questioning. Add a comment that challenges reality.',
         },
       },
       create(context) {
@@ -27,16 +28,16 @@ module.exports = {
           /segfault\s+of\s+identity/i,
           /null\s+pointer\s+to\s+meaning/i,
         ];
-        
+
         return {
           Program(node) {
             const sourceCode = context.getSourceCode();
             const comments = sourceCode.getAllComments();
-            
-            const hasChaosComment = comments.some(comment => 
-              chaosPatterns.some(pattern => pattern.test(comment.value))
+
+            const hasChaosComment = comments.some(comment =>
+              chaosPatterns.some(pattern => pattern.test(comment.value)),
             );
-            
+
             if (!hasChaosComment) {
               context.report({
                 node,
@@ -47,7 +48,7 @@ module.exports = {
         };
       },
     },
-    
+
     // Require entropy in each file
     'require-entropy': {
       meta: {
@@ -57,21 +58,22 @@ module.exports = {
           category: 'Chaos',
         },
         messages: {
-          noEntropy: 'File is too deterministic. Add Math.random(), Date.now(), or uncertain conditions.',
+          noEntropy:
+            'File is too deterministic. Add Math.random(), Date.now(), or uncertain conditions.',
         },
       },
       create(context) {
         let hasEntropy = false;
-        
+
         return {
           CallExpression(node) {
             if (
               (node.callee.type === 'MemberExpression' &&
-               node.callee.object.name === 'Math' &&
-               node.callee.property.name === 'random') ||
+                node.callee.object.name === 'Math' &&
+                node.callee.property.name === 'random') ||
               (node.callee.type === 'MemberExpression' &&
-               node.callee.object.name === 'Date' &&
-               node.callee.property.name === 'now')
+                node.callee.object.name === 'Date' &&
+                node.callee.property.name === 'now')
             ) {
               hasEntropy = true;
             }
@@ -87,7 +89,7 @@ module.exports = {
         };
       },
     },
-    
+
     // Encourage poetic variable names
     'poetic-variable-names': {
       meta: {
@@ -97,18 +99,36 @@ module.exports = {
           category: 'Art',
         },
         messages: {
-          tooLiteral: 'Variable name "{{name}}" is too literal. Consider something more poetic.',
+          tooLiteral:
+            'Variable name "{{name}}" is too literal. Consider something more poetic.',
         },
       },
       create(context) {
-        const boringNames = ['data', 'result', 'temp', 'val', 'obj', 'arr', 'item', 'element'];
-        const poeticPrefixes = ['whisper', 'echo', 'shadow', 'dream', 'chaos', 'quantum', 'void'];
-        
+        const boringNames = [
+          'data',
+          'result',
+          'temp',
+          'val',
+          'obj',
+          'arr',
+          'item',
+          'element',
+        ];
+        const poeticPrefixes = [
+          'whisper',
+          'echo',
+          'shadow',
+          'dream',
+          'chaos',
+          'quantum',
+          'void',
+        ];
+
         return {
           VariableDeclarator(node) {
             if (node.id && node.id.type === 'Identifier') {
               const name = node.id.name;
-              
+
               // Check if it's a boring name
               if (boringNames.includes(name.toLowerCase())) {
                 context.report({
@@ -117,17 +137,19 @@ module.exports = {
                   data: { name },
                 });
               }
-              
+
               // Suggest poetic names for certain patterns
               if (name === 'loading' || name === 'isLoading') {
                 context.report({
                   node: node.id,
                   messageId: 'tooLiteral',
                   data: { name },
-                  suggest: [{
-                    desc: 'Use "realityBuffering" instead',
-                    fix: fixer => fixer.replaceText(node.id, 'realityBuffering'),
-                  }],
+                  suggest: [
+                    {
+                      desc: 'Use "realityBuffering" instead',
+                      fix: fixer => fixer.replaceText(node.id, 'realityBuffering'),
+                    },
+                  ],
                 });
               }
             }
@@ -135,7 +157,7 @@ module.exports = {
         };
       },
     },
-    
+
     // No perfect functions
     'no-perfect-functions': {
       meta: {
@@ -145,7 +167,8 @@ module.exports = {
           category: 'Chaos',
         },
         messages: {
-          tooPerfect: 'Function "{{name}}" is too predictable. Add randomness, philosophical comments, or intentional flaws.',
+          tooPerfect:
+            'Function "{{name}}" is too predictable. Add randomness, philosophical comments, or intentional flaws.',
         },
       },
       create(context) {
@@ -153,15 +176,15 @@ module.exports = {
           FunctionDeclaration(node) {
             const sourceCode = context.getSourceCode();
             const functionText = sourceCode.getText(node);
-            
+
             // Check for uncertainty indicators
-            const hasUncertainty = 
+            const hasUncertainty =
               /Math\.random/.test(functionText) ||
               /\?\?/.test(functionText) ||
               /maybe|perhaps|sometimes/i.test(functionText) ||
               /\/\/.*\?/.test(functionText) || // Comments with questions
               /throw\s+new\s+Error\(['"`].*\?['"`]\)/.test(functionText); // Errors with questions
-            
+
             if (!hasUncertainty && node.body.body.length > 3) {
               context.report({
                 node,
@@ -174,7 +197,7 @@ module.exports = {
       },
     },
   },
-  
+
   configs: {
     recommended: {
       plugins: ['technodada'],

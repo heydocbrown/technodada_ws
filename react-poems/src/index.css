@@ -34,7 +34,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'VT323', monospace;
   font-weight: normal;
   text-transform: uppercase;
@@ -118,9 +123,15 @@ button.active {
 }
 
 @keyframes loadingDots {
-  0% { content: '.'; }
-  33% { content: '..'; }
-  66% { content: '...'; }
+  0% {
+    content: '.';
+  }
+  33% {
+    content: '..';
+  }
+  66% {
+    content: '...';
+  }
 }
 
 /* Error messages */
@@ -137,11 +148,23 @@ button.active {
 }
 
 @keyframes glitch {
-  0%, 90%, 100% { transform: translate(0); }
-  92% { transform: translate(-2px, 2px); }
-  94% { transform: translate(2px, -2px); }
-  96% { transform: translate(-2px, -2px); }
-  98% { transform: translate(2px, 2px); }
+  0%,
+  90%,
+  100% {
+    transform: translate(0);
+  }
+  92% {
+    transform: translate(-2px, 2px);
+  }
+  94% {
+    transform: translate(2px, -2px);
+  }
+  96% {
+    transform: translate(-2px, -2px);
+  }
+  98% {
+    transform: translate(2px, 2px);
+  }
 }
 
 /* Cursor Animation */
@@ -155,8 +178,14 @@ button.active {
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* App container */

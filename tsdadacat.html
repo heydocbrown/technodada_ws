@@ -1,302 +1,309 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DADACAT_VIEWER.EXE - Reality Processor</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/components/poem-terminal.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/components/poem-terminal.css" />
     <style>
-        /* React specific styles */
-        .art-viewer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
+      /* React specific styles */
+      .art-viewer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        min-height: 100vh;
+      }
 
-        .art-viewer-header {
-            text-align: center;
-            margin-bottom: 40px;
+      .art-viewer-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .art-viewer-header h1 {
+        font-size: 3rem;
+        color: var(--terminal-green);
+        text-shadow: 0 0 10px var(--terminal-green);
+      }
+
+      .art-selector-section {
+        margin-bottom: 30px;
+      }
+
+      .dropdown-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .art-dropdown {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        background: var(--gray-1);
+        border: 1px solid var(--terminal-green);
+        color: var(--terminal-green);
+        font-family: 'Space Mono', monospace;
+        cursor: pointer;
+      }
+
+      .art-dropdown option {
+        background: var(--gray-1);
+        color: var(--terminal-green);
+        padding: 10px;
+      }
+
+      .content-display {
+        display: flex;
+        gap: 30px;
+        margin-top: 40px;
+        align-items: flex-start;
+      }
+
+      .prompt-section {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .image-section {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .prompt-terminal {
+        background: var(--gray-1);
+        border: 1px solid var(--terminal-green);
+        padding: 20px;
+        min-height: 400px;
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      .prompt-text {
+        font-family: 'VT323', monospace;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: var(--terminal-green);
+        word-wrap: break-word;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background: var(--terminal-green);
+        animation: blink 1s infinite;
+        margin-left: 2px;
+      }
+
+      .image-viewer {
+        position: relative;
+        background: var(--gray-1);
+        border: 1px solid var(--terminal-green);
+        overflow: hidden;
+        min-height: 400px;
+      }
+
+      .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .art-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .image-reveal-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--gray-1);
+        transition: height 0.05s linear;
+      }
+
+      /* Mode selector styles */
+      .mode-selector {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .mode-button {
+        min-width: 200px;
+        padding: 15px 20px;
+        font-size: 1rem;
+        background: var(--gray-1);
+        border: 2px solid var(--gray-3);
+        color: var(--terminal-green);
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: 'VT323', monospace;
+        text-transform: uppercase;
+      }
+
+      .mode-button:hover {
+        border-color: var(--terminal-green);
+        box-shadow: 0 0 10px var(--terminal-green);
+      }
+
+      .mode-button.active {
+        background: var(--terminal-green);
+        color: var(--bg-black);
+        border-color: var(--terminal-green);
+      }
+
+      /* Interactive prompt styles */
+      .interactive-dadacat-section {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .prompt-form {
+        width: 100%;
+      }
+
+      .prompt-input-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .prompt-input {
+        flex: 1;
+        padding: 12px;
+        font-size: 1rem;
+        background: var(--gray-1);
+        border: 1px solid var(--terminal-green);
+        color: var(--terminal-green);
+        font-family: 'Space Mono', monospace;
+      }
+
+      .prompt-input::placeholder {
+        color: var(--gray-3);
+      }
+
+      .prompt-input:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--terminal-green);
+      }
+
+      .generate-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        background: var(--gray-1);
+        border: 2px solid var(--terminal-green);
+        color: var(--terminal-green);
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: 'VT323', monospace;
+        text-transform: uppercase;
+      }
+
+      .generate-button:hover:not(:disabled) {
+        background: var(--terminal-green);
+        color: var(--bg-black);
+      }
+
+      .generate-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .content-display {
+          flex-direction: column;
         }
 
         .art-viewer-header h1 {
-            font-size: 3rem;
-            color: var(--terminal-green);
-            text-shadow: 0 0 10px var(--terminal-green);
-        }
-
-        .art-selector-section {
-            margin-bottom: 30px;
-        }
-
-        .dropdown-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .art-dropdown {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            color: var(--terminal-green);
-            font-family: 'Space Mono', monospace;
-            cursor: pointer;
-        }
-
-        .art-dropdown option {
-            background: var(--gray-1);
-            color: var(--terminal-green);
-            padding: 10px;
-        }
-
-        .content-display {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-            align-items: flex-start;
-        }
-
-        .prompt-section {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .image-section {
-            flex: 1;
-            min-width: 0;
+          font-size: 2rem;
         }
 
         .prompt-terminal {
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            padding: 20px;
-            min-height: 400px;
-            max-height: 600px;
-            overflow-y: auto;
+          min-height: 300px;
+          max-height: 400px;
         }
 
-        .prompt-text {
-            font-family: 'VT323', monospace;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: var(--terminal-green);
-            word-wrap: break-word;
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: var(--terminal-green);
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        .image-viewer {
-            position: relative;
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            overflow: hidden;
-            min-height: 400px;
-        }
-
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .art-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .image-reveal-mask {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--gray-1);
-            transition: height 0.05s linear;
-        }
-
-        /* Mode selector styles */
         .mode-selector {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 30px;
+          flex-direction: column;
+          align-items: center;
         }
 
         .mode-button {
-            min-width: 200px;
-            padding: 15px 20px;
-            font-size: 1rem;
-            background: var(--gray-1);
-            border: 2px solid var(--gray-3);
-            color: var(--terminal-green);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'VT323', monospace;
-            text-transform: uppercase;
-        }
-
-        .mode-button:hover {
-            border-color: var(--terminal-green);
-            box-shadow: 0 0 10px var(--terminal-green);
-        }
-
-        .mode-button.active {
-            background: var(--terminal-green);
-            color: var(--bg-black);
-            border-color: var(--terminal-green);
-        }
-
-        /* Interactive prompt styles */
-        .interactive-dadacat-section {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .prompt-form {
-            width: 100%;
+          width: 100%;
+          max-width: 300px;
         }
 
         .prompt-input-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+          flex-direction: column;
         }
 
-        .prompt-input {
-            flex: 1;
-            padding: 12px;
-            font-size: 1rem;
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            color: var(--terminal-green);
-            font-family: 'Space Mono', monospace;
-        }
-
-        .prompt-input::placeholder {
-            color: var(--gray-3);
-        }
-
-        .prompt-input:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--terminal-green);
-        }
-
+        .prompt-input,
         .generate-button {
-            padding: 12px 24px;
-            font-size: 1rem;
-            background: var(--gray-1);
-            border: 2px solid var(--terminal-green);
-            color: var(--terminal-green);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'VT323', monospace;
-            text-transform: uppercase;
+          width: 100%;
         }
-
-        .generate-button:hover:not(:disabled) {
-            background: var(--terminal-green);
-            color: var(--bg-black);
-        }
-
-        .generate-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .content-display {
-                flex-direction: column;
-            }
-
-            .art-viewer-header h1 {
-                font-size: 2rem;
-            }
-
-            .prompt-terminal {
-                min-height: 300px;
-                max-height: 400px;
-            }
-
-            .mode-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .mode-button {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .prompt-input-container {
-                flex-direction: column;
-            }
-
-            .prompt-input, .generate-button {
-                width: 100%;
-            }
-        }
+      }
     </style>
-</head>
-<body data-page="art-viewer" class="crt-effect">
+  </head>
+  <body data-page="art-viewer" class="crt-effect">
     <!-- Matrix background -->
     <div class="matrix-bg" id="matrixBg"></div>
-    
+
     <div id="root"></div>
-    
+
     <!-- Status bar -->
     <div class="status-bar">
-        <div class="status-item">
-            <span class="status-indicator"></span>
-            <span>REALITY_ENGINE: DADACAT_MODE</span>
-        </div>
-        <div class="status-item">
-            <span>ART_MODE: <span id="artMode">DADACAT</span></span>
-        </div>
-        <div class="status-item">
-            <span>GNOSIS_LEVEL: <span id="gnosisLevel">0%</span></span>
-        </div>
+      <div class="status-item">
+        <span class="status-indicator"></span>
+        <span>REALITY_ENGINE: DADACAT_MODE</span>
+      </div>
+      <div class="status-item">
+        <span>ART_MODE: <span id="artMode">DADACAT</span></span>
+      </div>
+      <div class="status-item">
+        <span>GNOSIS_LEVEL: <span id="gnosisLevel">0%</span></span>
+      </div>
     </div>
-    
+
     <!-- React App from Vite Build -->
     <!-- Will be updated after build -->
     <!-- React App loaded via Vite -->
     <script type="module" src="/src/main.jsx"></script>
     
+    <!-- Dream Navigation -->
+    <script src="/js/dream-nav-loader.js"></script>
+
     <!-- Matrix background animation -->
     <script>
-        // Simple matrix effect
-        const matrixBg = document.getElementById('matrixBg');
-        if (matrixBg) {
-            const chars = '01';
-            for (let i = 0; i < 50; i++) {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                column.style.left = Math.random() * 100 + '%';
-                column.style.animationDelay = Math.random() * 20 + 's';
-                column.style.animationDuration = (Math.random() * 20 + 10) + 's';
-                
-                let text = '';
-                for (let j = 0; j < 100; j++) {
-                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
-                }
-                column.innerHTML = text;
-                
-                matrixBg.appendChild(column);
-            }
+      // Simple matrix effect
+      const matrixBg = document.getElementById('matrixBg');
+      if (matrixBg) {
+        const chars = '01';
+        for (let i = 0; i < 50; i++) {
+          const column = document.createElement('div');
+          column.className = 'matrix-column';
+          column.style.left = Math.random() * 100 + '%';
+          column.style.animationDelay = Math.random() * 20 + 's';
+          column.style.animationDuration = Math.random() * 20 + 10 + 's';
+
+          let text = '';
+          for (let j = 0; j < 100; j++) {
+            text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+          }
+          column.innerHTML = text;
+
+          matrixBg.appendChild(column);
         }
+      }
     </script>
-</body>
+  </body>
 </html>

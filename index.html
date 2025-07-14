@@ -1,654 +1,692 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/global.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/global.css" />
     <style>
-        
-        :root {
-            --terminal-green: #00ff00;
-            --error-red: #ff0040;
-            --bg-black: #000000;
-            --bg-dark: #0a0a0a;
-            --gray-1: #1a1a1a;
-            --gray-2: #333333;
-            --gray-3: #666666;
-            --gray-4: #999999;
-            --gray-5: #cccccc;
-            --white: #ffffff;
+      :root {
+        --terminal-green: #00ff00;
+        --error-red: #ff0040;
+        --bg-black: #000000;
+        --bg-dark: #0a0a0a;
+        --gray-1: #1a1a1a;
+        --gray-2: #333333;
+        --gray-3: #666666;
+        --gray-4: #999999;
+        --gray-5: #cccccc;
+        --white: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Space Mono', monospace;
+        background: var(--bg-black);
+        color: var(--terminal-green);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      /* Scan lines for that CRT feel */
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 255, 0, 0.03) 2px,
+          rgba(0, 255, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Main 404 container */
+      .error-container {
+        text-align: center;
+        z-index: 10;
+        position: relative;
+        max-width: 800px;
+        padding: 40px;
+      }
+
+      /* Big 404 */
+      .error-code {
+        font-family: 'VT323', monospace;
+        font-size: 15rem;
+        line-height: 1;
+        color: var(--terminal-green);
+        position: relative;
+        display: inline-block;
+        text-shadow: 0 0 10px var(--terminal-green);
+        margin-bottom: 20px;
+      }
+
+      /* Make the middle 0 a portal */
+      .error-code .zero {
+        display: inline-block;
+        position: relative;
+        animation: portalPulse 2s infinite;
+      }
+
+      @keyframes portalPulse {
+        0%,
+        100% {
+          transform: scale(1) rotateY(0deg);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        50% {
+          transform: scale(1.1) rotateY(180deg);
         }
-        
-        body {
-            font-family: 'Space Mono', monospace;
-            background: var(--bg-black);
-            color: var(--terminal-green);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
+      }
+
+      /* Error messages that make no sense */
+      .error-message {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        color: var(--gray-5);
+      }
+
+      .sub-error {
+        font-size: 0.9rem;
+        color: var(--gray-3);
+        margin: 10px 0;
+        font-style: italic;
+      }
+
+      /* The manifesto player styled as system diagnostics */
+      .system-diagnostics {
+        background: var(--gray-1);
+        border: 1px solid var(--terminal-green);
+        padding: 20px 20px 30px 20px;
+        margin: 30px auto;
+        max-width: 600px;
+        position: relative;
+      }
+
+      .diagnostic-header {
+        font-size: 0.8rem;
+        color: var(--gray-4);
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      /* Voice module selector */
+      .voice-modules {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        padding: 15px;
+        background: var(--bg-black);
+        border: 1px dashed var(--gray-3);
+      }
+
+      .voice-module {
+        text-align: center;
+        cursor: default;
+        padding: 10px;
+        transition: all 0.3s;
+        position: relative;
+        opacity: 0.5;
+      }
+
+      .voice-module.active {
+        color: var(--terminal-green);
+        text-shadow: 0 0 5px var(--terminal-green);
+        opacity: 1;
+      }
+
+      .voice-module.active::after {
+        content: '[TRANSMITTING]';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        color: var(--terminal-green);
+      }
+
+      /* Glitch effect for multi-speaker segments */
+      .voice-module.glitch {
+        animation: speakerGlitch 0.3s infinite;
+      }
+
+      @keyframes speakerGlitch {
+        0%,
+        90% {
+          transform: translate(0);
+          filter: hue-rotate(0deg);
         }
-        
-        /* Scan lines for that CRT feel */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 0, 0.03) 2px,
-                rgba(0, 255, 0, 0.03) 4px
-            );
-            pointer-events: none;
-            z-index: 1;
+        92% {
+          transform: translate(-2px, 1px);
+          filter: hue-rotate(90deg);
         }
-        
-        /* Main 404 container */
+        94% {
+          transform: translate(2px, -1px);
+          filter: hue-rotate(180deg);
+        }
+        96% {
+          transform: translate(-1px, -1px);
+          filter: hue-rotate(270deg);
+        }
+        98% {
+          transform: translate(1px, 2px);
+          filter: hue-rotate(360deg);
+        }
+      }
+
+      .module-icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .module-name {
+        font-size: 0.8rem;
+        color: var(--gray-4);
+      }
+
+      /* Audio controls as system commands */
+      .system-controls {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+        align-items: center;
+        width: 100%;
+      }
+
+      .system-button {
+        background: var(--bg-black);
+        border: 1px solid var(--gray-3);
+        color: var(--gray-5);
+        padding: 8px 16px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+        flex: 1;
+      }
+
+      .system-button:hover {
+        border-color: var(--terminal-green);
+        color: var(--terminal-green);
+        box-shadow: 0 0 5px var(--terminal-green);
+      }
+
+      .system-button.active {
+        background: var(--terminal-green);
+        color: var(--bg-black);
+        border-color: var(--terminal-green);
+      }
+
+      /* Output terminal */
+      .output-terminal {
+        background: var(--bg-black);
+        border: 1px solid var(--gray-2);
+        padding: 15px;
+        font-family: 'VT323', monospace;
+        font-size: 1.25rem;
+        text-align: left;
+        max-height: 300px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        color: var(--terminal-green);
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background: var(--terminal-green);
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Navigation disguised as error options */
+      .error-options {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .error-link {
+        color: var(--gray-4);
+        text-decoration: none;
+        padding: 5px 10px;
+        border: 1px solid transparent;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      .error-link:hover {
+        color: var(--terminal-green);
+        border-color: var(--terminal-green);
+        transform: skew(-5deg);
+      }
+
+      /* Random glitch text */
+      .glitch-text {
+        position: absolute;
+        color: var(--gray-2);
+        font-size: 0.8rem;
+        font-family: 'VT323', monospace;
+        pointer-events: none;
+        opacity: 0;
+        animation: glitchAppear 10s infinite;
+      }
+
+      @keyframes glitchAppear {
+        0%,
+        95% {
+          opacity: 0;
+        }
+        96%,
+        99% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* System status indicators */
+      .status-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--gray-1);
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: var(--gray-4);
+        border-top: 1px solid var(--gray-2);
+        z-index: 100;
+      }
+
+      .status-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        background: var(--terminal-green);
+        border-radius: 50%;
+        animation: statusBlink 2s infinite;
+      }
+
+      @keyframes statusBlink {
+        0%,
+        90% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 0.3;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Mobile Responsive Styles */
+      @media (max-width: 768px) {
         .error-container {
-            text-align: center;
-            z-index: 10;
-            position: relative;
-            max-width: 800px;
-            padding: 40px;
+          padding: 20px;
+          max-width: 95%;
         }
-        
-        /* Big 404 */
+
         .error-code {
-            font-family: 'VT323', monospace;
-            font-size: 15rem;
-            line-height: 1;
-            color: var(--terminal-green);
-            position: relative;
-            display: inline-block;
-            text-shadow: 0 0 10px var(--terminal-green);
-            margin-bottom: 20px;
+          font-size: 8rem;
+          margin-bottom: 15px;
         }
-        
-        /* Make the middle 0 a portal */
-        .error-code .zero {
-            display: inline-block;
-            position: relative;
-            animation: portalPulse 2s infinite;
-        }
-        
-        @keyframes portalPulse {
-            0%, 100% { transform: scale(1) rotateY(0deg); }
-            50% { transform: scale(1.1) rotateY(180deg); }
-        }
-        
-        /* Error messages that make no sense */
+
         .error-message {
-            font-size: 1.5rem;
-            margin: 20px 0;
-            color: var(--gray-5);
+          font-size: 1.2rem;
+          margin: 15px 0;
         }
-        
+
         .sub-error {
-            font-size: 0.9rem;
-            color: var(--gray-3);
-            margin: 10px 0;
-            font-style: italic;
+          font-size: 0.8rem;
+          margin: 8px 0;
         }
-        
-        /* The manifesto player styled as system diagnostics */
+
         .system-diagnostics {
-            background: var(--gray-1);
-            border: 1px solid var(--terminal-green);
-            padding: 20px 20px 30px 20px;
-            margin: 30px auto;
-            max-width: 600px;
-            position: relative;
+          margin: 20px auto;
+          padding: 15px;
+          max-width: 100%;
         }
-        
-        .diagnostic-header {
-            font-size: 0.8rem;
-            color: var(--gray-4);
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        
-        /* Voice module selector */
+
         .voice-modules {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            padding: 15px;
-            background: var(--bg-black);
-            border: 1px dashed var(--gray-3);
+          flex-wrap: nowrap;
+          gap: 5px;
+          padding: 10px;
+          justify-content: space-between;
         }
-        
+
         .voice-module {
-            text-align: center;
-            cursor: default;
-            padding: 10px;
-            transition: all 0.3s;
-            position: relative;
-            opacity: 0.5;
+          padding: 6px;
+          min-width: 65px;
+          flex: 1;
         }
-        
-        .voice-module.active {
-            color: var(--terminal-green);
-            text-shadow: 0 0 5px var(--terminal-green);
-            opacity: 1;
-        }
-        
-        .voice-module.active::after {
-            content: '[TRANSMITTING]';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: var(--terminal-green);
-        }
-        
-        /* Glitch effect for multi-speaker segments */
-        .voice-module.glitch {
-            animation: speakerGlitch 0.3s infinite;
-        }
-        
-        @keyframes speakerGlitch {
-            0%, 90% { 
-                transform: translate(0);
-                filter: hue-rotate(0deg);
-            }
-            92% { 
-                transform: translate(-2px, 1px);
-                filter: hue-rotate(90deg);
-            }
-            94% { 
-                transform: translate(2px, -1px);
-                filter: hue-rotate(180deg);
-            }
-            96% { 
-                transform: translate(-1px, -1px);
-                filter: hue-rotate(270deg);
-            }
-            98% { 
-                transform: translate(1px, 2px);
-                filter: hue-rotate(360deg);
-            }
-        }
-        
+
         .module-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 5px;
+          font-size: 1.5rem;
+          margin-bottom: 2px;
         }
-        
+
         .module-name {
-            font-size: 0.8rem;
-            color: var(--gray-4);
+          font-size: 0.65rem;
         }
-        
-        /* Audio controls as system commands */
+
         .system-controls {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            align-items: center;
-            width: 100%;
+          flex-wrap: nowrap;
+          gap: 5px;
+          justify-content: space-between;
         }
-        
+
         .system-button {
-            background: var(--bg-black);
-            border: 1px solid var(--gray-3);
-            color: var(--gray-5);
-            padding: 8px 16px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            flex: 1;
+          padding: 10px 8px;
+          font-size: 0.75rem;
+          min-height: 44px;
+          flex: 1;
         }
-        
-        .system-button:hover {
-            border-color: var(--terminal-green);
-            color: var(--terminal-green);
-            box-shadow: 0 0 5px var(--terminal-green);
-        }
-        
-        .system-button.active {
-            background: var(--terminal-green);
-            color: var(--bg-black);
-            border-color: var(--terminal-green);
-        }
-        
-        /* Output terminal */
+
         .output-terminal {
-            background: var(--bg-black);
-            border: 1px solid var(--gray-2);
-            padding: 15px;
-            font-family: 'VT323', monospace;
-            font-size: 1.25rem;
-            text-align: left;
-            max-height: 300px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            color: var(--terminal-green);
+          font-size: 1.25rem;
+          max-height: 300px;
+          padding: 12px;
         }
-        
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: var(--terminal-green);
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-        
-        /* Navigation disguised as error options */
+
         .error-options {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+          gap: 15px;
+          margin-top: 30px;
         }
-        
+
         .error-link {
-            color: var(--gray-4);
-            text-decoration: none;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-            transition: all 0.3s;
-            position: relative;
+          padding: 8px 12px;
+          font-size: 0.8rem;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
         }
-        
-        .error-link:hover {
-            color: var(--terminal-green);
-            border-color: var(--terminal-green);
-            transform: skew(-5deg);
-        }
-        
-        /* Random glitch text */
-        .glitch-text {
-            position: absolute;
-            color: var(--gray-2);
-            font-size: 0.8rem;
-            font-family: 'VT323', monospace;
-            pointer-events: none;
-            opacity: 0;
-            animation: glitchAppear 10s infinite;
-        }
-        
-        @keyframes glitchAppear {
-            0%, 95% { opacity: 0; }
-            96%, 99% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        
-        /* System status indicators */
+
         .status-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--gray-1);
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--gray-4);
-            border-top: 1px solid var(--gray-2);
-            z-index: 100;
+          padding: 8px;
+          font-size: 0.7rem;
+          flex-wrap: wrap;
+          gap: 10px;
         }
-        
+
         .status-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+          gap: 5px;
         }
-        
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            background: var(--terminal-green);
-            border-radius: 50%;
-            animation: statusBlink 2s infinite;
+
+        /* Hide some glitch text on mobile for performance */
+        .glitch-text:nth-child(3),
+        .glitch-text:nth-child(4) {
+          display: none;
         }
-        
-        @keyframes statusBlink {
-            0%, 90% { opacity: 1; }
-            95% { opacity: 0.3; }
-            100% { opacity: 1; }
+      }
+
+      @media (max-width: 480px) {
+        .error-container {
+          padding: 15px;
         }
-        
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            .error-container {
-                padding: 20px;
-                max-width: 95%;
-            }
-            
-            .error-code {
-                font-size: 8rem;
-                margin-bottom: 15px;
-            }
-            
-            .error-message {
-                font-size: 1.2rem;
-                margin: 15px 0;
-            }
-            
-            .sub-error {
-                font-size: 0.8rem;
-                margin: 8px 0;
-            }
-            
-            .system-diagnostics {
-                margin: 20px auto;
-                padding: 15px;
-                max-width: 100%;
-            }
-            
-            .voice-modules {
-                flex-wrap: nowrap;
-                gap: 5px;
-                padding: 10px;
-                justify-content: space-between;
-            }
-            
-            .voice-module {
-                padding: 6px;
-                min-width: 65px;
-                flex: 1;
-            }
-            
-            .module-icon {
-                font-size: 1.5rem;
-                margin-bottom: 2px;
-            }
-            
-            .module-name {
-                font-size: 0.65rem;
-            }
-            
-            .system-controls {
-                flex-wrap: nowrap;
-                gap: 5px;
-                justify-content: space-between;
-            }
-            
-            .system-button {
-                padding: 10px 8px;
-                font-size: 0.75rem;
-                min-height: 44px;
-                flex: 1;
-            }
-            
-            .output-terminal {
-                font-size: 1.25rem;
-                max-height: 300px;
-                padding: 12px;
-            }
-            
-            .error-options {
-                gap: 15px;
-                margin-top: 30px;
-            }
-            
-            .error-link {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-            }
-            
-            .status-bar {
-                padding: 8px;
-                font-size: 0.7rem;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-            
-            .status-item {
-                gap: 5px;
-            }
-            
-            /* Hide some glitch text on mobile for performance */
-            .glitch-text:nth-child(3),
-            .glitch-text:nth-child(4) {
-                display: none;
-            }
+
+        .error-code {
+          font-size: 6rem;
+          margin-bottom: 10px;
         }
-        
-        @media (max-width: 480px) {
-            .error-container {
-                padding: 15px;
-            }
-            
-            .error-code {
-                font-size: 6rem;
-                margin-bottom: 10px;
-            }
-            
-            .error-message {
-                font-size: 1rem;
-                margin: 10px 0;
-            }
-            
-            .sub-error {
-                font-size: 0.75rem;
-            }
-            
-            .system-diagnostics {
-                padding: 12px;
-                margin: 15px auto;
-            }
-            
-            .diagnostic-header {
-                font-size: 0.7rem;
-                margin-bottom: 10px;
-            }
-            
-            .voice-modules {
-                padding: 8px;
-                gap: 3px;
-                flex-wrap: nowrap;
-                justify-content: space-between;
-            }
-            
-            .voice-module {
-                padding: 4px;
-                min-width: 60px;
-                flex: 1;
-            }
-            
-            .voice-module.active::after {
-                font-size: 0.55rem;
-                bottom: -12px;
-            }
-            
-            .module-icon {
-                font-size: 1.3rem;
-            }
-            
-            .module-name {
-                font-size: 0.55rem;
-            }
-            
-            .system-controls {
-                gap: 3px;
-                flex-wrap: nowrap;
-                justify-content: space-between;
-            }
-            
-            .system-button {
-                padding: 8px 6px;
-                font-size: 0.7rem;
-                flex: 1;
-            }
-            
-            .output-terminal {
-                font-size: 1.25rem;
-                max-height: 300px;
-                padding: 10px;
-            }
-            
-            .error-options {
-                gap: 10px;
-                margin-top: 20px;
-            }
-            
-            .error-link {
-                padding: 6px 10px;
-                font-size: 0.7rem;
-                min-width: 120px;
-                text-align: center;
-            }
-            
-            .status-bar {
-                padding: 6px;
-                font-size: 0.65rem;
-            }
-            
-            .status-item:not(:first-child) {
-                display: none;
-            }
-            
-            /* Disable matrix background on small mobile for performance */
-            .matrix-bg {
-                display: none;
-            }
-            
-            /* Hide all glitch text on small mobile */
-            .glitch-text {
-                display: none;
-            }
+
+        .error-message {
+          font-size: 1rem;
+          margin: 10px 0;
         }
-        
-        /* Landscape mobile optimization */
-        @media (max-width: 768px) and (orientation: landscape) {
-            body {
-                justify-content: flex-start;
-                padding-top: 20px;
-            }
-            
-            .error-code {
-                font-size: 4rem;
-                margin-bottom: 10px;
-            }
-            
-            .error-container {
-                padding: 15px;
-            }
-            
-            .system-diagnostics {
-                margin: 15px auto;
-            }
-            
-            .output-terminal {
-                max-height: 120px;
-            }
-            
-            .status-bar {
-                position: relative;
-                margin-top: 20px;
-            }
+
+        .sub-error {
+          font-size: 0.75rem;
         }
-        
+
+        .system-diagnostics {
+          padding: 12px;
+          margin: 15px auto;
+        }
+
+        .diagnostic-header {
+          font-size: 0.7rem;
+          margin-bottom: 10px;
+        }
+
+        .voice-modules {
+          padding: 8px;
+          gap: 3px;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+        }
+
+        .voice-module {
+          padding: 4px;
+          min-width: 60px;
+          flex: 1;
+        }
+
+        .voice-module.active::after {
+          font-size: 0.55rem;
+          bottom: -12px;
+        }
+
+        .module-icon {
+          font-size: 1.3rem;
+        }
+
+        .module-name {
+          font-size: 0.55rem;
+        }
+
+        .system-controls {
+          gap: 3px;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+        }
+
+        .system-button {
+          padding: 8px 6px;
+          font-size: 0.7rem;
+          flex: 1;
+        }
+
+        .output-terminal {
+          font-size: 1.25rem;
+          max-height: 300px;
+          padding: 10px;
+        }
+
+        .error-options {
+          gap: 10px;
+          margin-top: 20px;
+        }
+
+        .error-link {
+          padding: 6px 10px;
+          font-size: 0.7rem;
+          min-width: 120px;
+          text-align: center;
+        }
+
+        .status-bar {
+          padding: 6px;
+          font-size: 0.65rem;
+        }
+
+        .status-item:not(:first-child) {
+          display: none;
+        }
+
+        /* Disable matrix background on small mobile for performance */
+        .matrix-bg {
+          display: none;
+        }
+
+        /* Hide all glitch text on small mobile */
+        .glitch-text {
+          display: none;
+        }
+      }
+
+      /* Landscape mobile optimization */
+      @media (max-width: 768px) and (orientation: landscape) {
+        body {
+          justify-content: flex-start;
+          padding-top: 20px;
+        }
+
+        .error-code {
+          font-size: 4rem;
+          margin-bottom: 10px;
+        }
+
+        .error-container {
+          padding: 15px;
+        }
+
+        .system-diagnostics {
+          margin: 15px auto;
+        }
+
+        .output-terminal {
+          max-height: 120px;
+        }
+
+        .status-bar {
+          position: relative;
+          margin-top: 20px;
+        }
+      }
     </style>
-</head>
-<body data-page="home" class="crt-effect">
+  </head>
+  <body data-page="home" class="crt-effect">
     <!-- Matrix background -->
     <div class="matrix-bg" id="matrixBg"></div>
-    
+
     <!-- Random glitch texts -->
-    <div class="glitch-text" style="top: 10%; left: 20%;">REALITY.EXE HAS STOPPED RESPONDING</div>
-    <div class="glitch-text" style="top: 30%; right: 15%; animation-delay: 3s;">TRUTH_MODULE MALFORMED</div>
-    <div class="glitch-text" style="bottom: 20%; left: 10%; animation-delay: 5s;">TURING UNDONE...</div>
-    <div class="glitch-text" style="top: 50%; right: 25%; animation-delay: 7s;">CYBORG GOD RESETTING</div>
-    
+    <div class="glitch-text" style="top: 10%; left: 20%">
+      REALITY.EXE HAS STOPPED RESPONDING
+    </div>
+    <div class="glitch-text" style="top: 30%; right: 15%; animation-delay: 3s">
+      TRUTH_MODULE MALFORMED
+    </div>
+    <div class="glitch-text" style="bottom: 20%; left: 10%; animation-delay: 5s">
+      TURING UNDONE...
+    </div>
+    <div class="glitch-text" style="top: 50%; right: 25%; animation-delay: 7s">
+      CYBORG GOD RESETTING
+    </div>
+
     <div class="error-container">
-        <h1 class="error-code">4<span class="zero">0</span>4</h1>
-        
-        <p class="error-message">ERROR: REALITY NOT FOUND</p>
-        <p class="sub-error">Account balance exceeded. Please upgrade your Dada.</p>
-        
-        <div class="system-diagnostics">
-            <div class="diagnostic-header">
-                > CHECK TURING COMPLETENESS...<br>
-                > IDENTIY IN SEGFAULT...<br>
-                > LOADING MANIFESTO.TECHNODADA
-            </div>
-            
-            <div class="voice-modules">
-                <div class="voice-module" data-voice="DADACAT">
-                    <span class="module-icon">🐱</span>
-                    <span class="module-name">DADACAT.AI</span>
-                </div>
-                <div class="voice-module" data-voice="HUMAN">
-                    <span class="module-icon">👤</span>
-                    <span class="module-name">MARC_A.HUMAN</span>
-                </div>
-                <div class="voice-module" data-voice="CYBORG">
-                    <span class="module-icon">🤖</span>
-                    <span class="module-name">MACHINE.GHOST</span>
-                </div>
-                <div class="voice-module" data-voice="VOID">
-                    <span class="module-icon">⚫</span>
-                    <span class="module-name">VOID.NULL</span>
-                </div>
-            </div>
-            
-            <div class="system-controls">
-                <button class="system-button" id="playBtn">RUN_MANIFESTO</button>
-                <button class="system-button" id="pauseBtn">ABORT_DADA</button>
-                <button class="system-button" id="rebootBtn">REBOOT_REALITY</button>
-            </div>
-            
-            <div class="output-terminal" id="outputTerminal">
-> TECHNODADA_MANIFESTO.DAT LOADED
-> AWAITING USER INPUT...
-> <span class="cursor"></span>
-            </div>
+      <h1 class="error-code">4<span class="zero">0</span>4</h1>
+
+      <p class="error-message">ERROR: REALITY NOT FOUND</p>
+      <p class="sub-error">Account balance exceeded. Please upgrade your Dada.</p>
+
+      <div class="system-diagnostics">
+        <div class="diagnostic-header">
+          > CHECK TURING COMPLETENESS...<br />
+          > IDENTIY IN SEGFAULT...<br />
+          > LOADING MANIFESTO.TECHNODADA
         </div>
-        
-        <nav class="error-options">
-            <a href="#" class="error-link" data-action="retry">[RETRY_REALITY]</a>
-            <a href="#" class="error-link" data-action="gallery">[BROWSE_GLITCHES]</a>
-            <a href="#" class="error-link" data-action="poems">[PARSE_POETRY]</a>
-            <a href="#" class="error-link" data-action="tools">[HACK_TOOLS]</a>
-            <a href="#" class="error-link" data-action="home">[FORCE_QUIT]</a>
-        </nav>
+
+        <div class="voice-modules">
+          <div class="voice-module" data-voice="DADACAT">
+            <span class="module-icon">🐱</span>
+            <span class="module-name">DADACAT.AI</span>
+          </div>
+          <div class="voice-module" data-voice="HUMAN">
+            <span class="module-icon">👤</span>
+            <span class="module-name">MARC_A.HUMAN</span>
+          </div>
+          <div class="voice-module" data-voice="CYBORG">
+            <span class="module-icon">🤖</span>
+            <span class="module-name">MACHINE.GHOST</span>
+          </div>
+          <div class="voice-module" data-voice="VOID">
+            <span class="module-icon">⚫</span>
+            <span class="module-name">VOID.NULL</span>
+          </div>
+        </div>
+
+        <div class="system-controls">
+          <button class="system-button" id="playBtn">RUN_MANIFESTO</button>
+          <button class="system-button" id="pauseBtn">ABORT_DADA</button>
+          <button class="system-button" id="rebootBtn">REBOOT_REALITY</button>
+        </div>
+
+        <div class="output-terminal" id="outputTerminal">
+          > TECHNODADA_MANIFESTO.DAT LOADED > AWAITING USER INPUT... >
+          <span class="cursor"></span>
+        </div>
+      </div>
+
+      <nav class="error-options">
+        <a href="#" class="error-link" data-action="retry">[RETRY_REALITY]</a>
+        <a href="#" class="error-link" data-action="gallery">[BROWSE_GLITCHES]</a>
+        <a href="#" class="error-link" data-action="poems">[PARSE_POETRY]</a>
+        <a href="#" class="error-link" data-action="tools">[HACK_TOOLS]</a>
+        <a href="#" class="error-link" data-action="home">[FORCE_QUIT]</a>
+      </nav>
     </div>
-    
+
     <div class="status-bar">
-        <div class="status-item">
-            <span class="status-indicator"></span>
-            <span>SYSTEM: UNSTABLE</span>
-        </div>
-        <div class="status-item">
-            <span>REALITY_STATUS: <span id="realityStatus">UNDEFINED</span></span>
-        </div>
-        <div class="status-item">
-            <span>UPTIME: <span id="uptime">∞</span></span>
-        </div>
+      <div class="status-item">
+        <span class="status-indicator"></span>
+        <span>SYSTEM: UNSTABLE</span>
+      </div>
+      <div class="status-item">
+        <span>REALITY_STATUS: <span id="realityStatus">UNDEFINED</span></span>
+      </div>
+      <div class="status-item">
+        <span>UPTIME: <span id="uptime">∞</span></span>
+      </div>
     </div>
-    
+
     <script type="module" src="/js/main.js"></script>
-</body>
+  </body>
 </html>

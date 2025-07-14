@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 // Updated configuration for dadacat-lambda-pipeline integration
 export default defineConfig({
@@ -11,11 +11,11 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         app2: resolve(__dirname, 'app2.html'),
         app3: resolve(__dirname, 'app3.html'),
-        appDadaCat: resolve(__dirname, 'appDadaCat.html')
+        appDadaCat: resolve(__dirname, 'appDadaCat.html'),
       },
       output: {
         // Create separate chunks for better caching
-        manualChunks: (id) => {
+        manualChunks: id => {
           if (id.includes('node_modules')) {
             // Separate the pipeline into its own chunk
             if (id.includes('dadacat-lambda-pipeline')) {
@@ -28,15 +28,15 @@ export default defineConfig({
             // All other dependencies
             return 'vendor';
           }
-        }
-      }
+        },
+      },
     },
     // Increase chunk size warning limit if needed
     chunkSizeWarningLimit: 1000,
   },
   // Pre-bundle the pipeline for faster dev server startup
   optimizeDeps: {
-    include: ['dadacat-lambda-pipeline', 'react', 'react-dom']
+    include: ['dadacat-lambda-pipeline', 'react', 'react-dom'],
   },
   // Define environment variables
   define: {
@@ -51,9 +51,9 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
-        secure: false
-      }
-    }
+        secure: false,
+      },
+    },
   },
   // Handle any Node.js polyfills if required by the package
   resolve: {
@@ -64,6 +64,6 @@ export default defineConfig({
       // 'buffer': 'buffer',
       // 'util': 'util',
       // 'process': 'process/browser',
-    }
-  }
-})
+    },
+  },
+});

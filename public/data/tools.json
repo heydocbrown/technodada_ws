@@ -46,11 +46,7 @@
       "errorMessage": "NULL RESPONSE EXPECTED",
       "status": "VOID",
       "link": "#",
-      "features": [
-        "Execute nothing",
-        "Return undefined",
-        "Segfault gracefully"
-      ]
+      "features": ["Execute nothing", "Return undefined", "Segfault gracefully"]
     }
   ]
 }

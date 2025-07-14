@@ -31,10 +31,13 @@ module.exports = {
   rules: {
     // Reasonable adjustments for artistic code
     'no-console': 'off', // We use console for art
-    'no-unused-vars': ['warn', { 
-      varsIgnorePattern: '^_',
-      argsIgnorePattern: '^_',
-    }],
+    'no-unused-vars': [
+      'warn',
+      {
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
+      },
+    ],
     'react/prop-types': 'off', // PropTypes are optional in our chaos
     'react/react-in-jsx-scope': 'off', // React 17+
   },
