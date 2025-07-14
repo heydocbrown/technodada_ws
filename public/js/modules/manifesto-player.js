@@ -203,9 +203,29 @@ export class ManifestoPlayer {
                     char = this.glitchChar(char);
                 }
                 
-                // Insert character before cursor
+                // Insert character before cursor (with artistic error handling)
                 const textNode = document.createTextNode(char);
-                this.outputTerminal.insertBefore(textNode, cursor);
+                try {
+                    this.outputTerminal.insertBefore(textNode, cursor);
+                } catch (error) {
+                    // Reality has diverged - cursor is not where we expected
+                    // Append to terminal instead and recreate cursor
+                    console.log('DOM.REALITY = UNCERTAIN, cursor lost in quantum state');
+                    this.outputTerminal.appendChild(textNode);
+                    
+                    // Remove old cursor if it exists
+                    const oldCursor = this.outputTerminal.querySelector('.cursor');
+                    if (oldCursor) {
+                        oldCursor.remove();
+                    }
+                    
+                    // Create new cursor
+                    const newCursor = document.createElement('span');
+                    newCursor.className = 'cursor';
+                    newCursor.textContent = '█';
+                    this.outputTerminal.appendChild(newCursor);
+                    cursor = newCursor;
+                }
                 
                 this.charIndex++;
                 this.outputTerminal.scrollTop = this.outputTerminal.scrollHeight;

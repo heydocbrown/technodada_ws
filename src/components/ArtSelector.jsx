@@ -68,15 +68,24 @@ function ArtSelector({ onArtSelect }) {
         if (selectedId) {
             const selectedArt = artData.find(item => item.run_id === selectedId);
             if (selectedArt) {
-                onArtSelect(selectedArt);
+                // Ensure the selected art has usable prompt data
+                const artWithPrompt = {
+                    ...selectedArt,
+                    cleaned_prompt: selectedArt.cleaned_prompt || selectedArt.prompt || selectedArt.human_prompt || 'VOID.NULL contemplates existence'
+                };
+                onArtSelect(artWithPrompt);
+            } else {
+                // Artistic error handling - reality has diverged
+                console.log('Selected art not found in quantum state. Reality.status = UNCERTAIN');
             }
         }
     };
 
     const getDropdownLabel = (item) => {
-        // Get first 8 words of cleaned prompt
-        const words = item.cleaned_prompt.split(' ').slice(0, 8);
-        return words.join(' ') + (item.cleaned_prompt.split(' ').length > 8 ? '...' : '');
+        // Get first 8 words of cleaned prompt, with artistic null handling
+        const prompt = item.cleaned_prompt || item.prompt || item.human_prompt || 'VOID.NULL whispers secrets';
+        const words = prompt.split(' ').slice(0, 8);
+        return words.join(' ') + (prompt.split(' ').length > 8 ? '...' : '');
     };
 
     if (loading) {
@@ -130,13 +139,13 @@ function ArtSelector({ onArtSelect }) {
                         defaultValue=""
                     >
                         <option value="">
-                            &gt; SELECT VISION [{filteredData.length} AVAILABLE]
+                            &gt; SELECT VISION [{filteredData?.length || 0} AVAILABLE]
                         </option>
-                        {filteredData.map(item => (
+                        {filteredData?.map(item => (
                             <option key={item.run_id} value={item.run_id}>
                                 {getDropdownLabel(item)}
                             </option>
-                        ))}
+                        )) || []}
                     </select>
                 </div>
             )}

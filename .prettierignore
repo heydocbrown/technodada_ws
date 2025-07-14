@@ -1,0 +1,45 @@
+# Prettier Ignore File
+# Some chaos should not be tamed
+
+# Build outputs
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# The private directory contains secrets not meant for formatting
+private/
+
+# Generated React build files in public
+public/react-poems/*.js
+public/react-poems/*.css
+
+# Package locks are already formatted by their creators
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# These files format themselves through sheer will
+*.chaos.js
+*.glitch.jsx
+*.void.null
+
+# Git
+.git/
+
+# The void
+/dev/null
+
+# Files that have achieved perfect entropy
+**/.shadow_*
+**/deprecated_realities/
+
+# Binary files (obviously)
+*.jpg
+*.png
+*.gif
+*.ico
+*.pdf
+
+# TECHNODADA: Where even the ignore patterns are poetic

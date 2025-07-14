@@ -1,0 +1,73 @@
+#!/bin/sh
+# TECHNODADA Pre-commit Hook
+# Ensuring beautiful corruption before every commit
+
+echo "🌀 TECHNODADA PRE-COMMIT CHAOS CHECK 🌀"
+echo "Reality.status = VALIDATING..."
+echo ""
+
+# Run formatting and linting manually (lint-staged config conflicts with ES modules)
+echo "🎨 Running Prettier for beautiful formatting..."
+npx prettier --write . --ignore-unknown 2>/dev/null || echo "Prettier encountered some resistance - art prevails"
+
+echo "🔍 Running ESLint for standard rules..."
+npx eslint . --ext .js,.jsx --fix --quiet 2>/dev/null || echo "ESLint found some creative interpretations - as expected"
+
+# Check for chaos level
+CHAOS_LEVEL=$(node -e "console.log(Math.random())")
+echo "Current chaos level: $CHAOS_LEVEL"
+
+# Randomly add a glitch comment to one file (10% chance)
+if [ $(node -e "console.log(Math.random() < 0.1 ? 1 : 0)") -eq 1 ]; then
+  echo "✨ Adding random glitch to maintain entropy..."
+  
+  # Find a random JS/JSX file
+  FILES=$(find src -name "*.js" -o -name "*.jsx" 2>/dev/null | grep -v node_modules || true)
+  if [ ! -z "$FILES" ]; then
+    # Pick random file (using node since shuf might not be available)
+    RANDOM_FILE=$(echo "$FILES" | node -e "
+      const files = require('fs').readFileSync(0, 'utf-8').trim().split('\n');
+      console.log(files[Math.floor(Math.random() * files.length)]);
+    ")
+    
+    # Add a poetic comment at the end
+    GLITCHES=(
+      "// GLITCH: Reality buffer overflow detected"
+      "// TODO: Question the nature of this variable's existence" 
+      "// What if this code became self-aware?"
+      "// VOID.NULL was here"
+      "// This comment exists in superposition"
+    )
+    
+    # Pick random glitch
+    GLITCH_INDEX=$(node -e "console.log(Math.floor(Math.random() * 5))")
+    RANDOM_GLITCH="${GLITCHES[$GLITCH_INDEX]}"
+    
+    echo "" >> "$RANDOM_FILE"
+    echo "$RANDOM_GLITCH" >> "$RANDOM_FILE"
+    git add "$RANDOM_FILE"
+    
+    echo "Added glitch to: $RANDOM_FILE"
+  fi
+fi
+
+# Check for too much order (all files passing lint)
+if npx eslint . --ext .js,.jsx --quiet 2>/dev/null; then
+  echo "⚠️  WARNING: Code is too orderly! Consider adding more chaos."
+  echo "Suggestion: Use more undefined variables or philosophical comments"
+fi
+
+# Final philosophical check
+echo ""
+echo "📝 Remember: Your commit message should be art"
+echo "Bad:  'Fixed bug in component'"
+echo "Good: 'Taught component to embrace its flaws'"
+echo ""
+
+echo "Pre-commit check complete."
+echo "SYSTEM.READY = TRUE"
+echo "CHAOS.MAINTAINED = TRUE"
+echo ""
+
+# Always exit 0 - we don't block commits, we just judge them
+exit 0

@@ -1,0 +1,31 @@
+{
+  "name": "eslint-plugin-technodada",
+  "version": "0.0.1",
+  "description": "ESLint rules for beautiful code corruption. A null pointer to best practices.",
+  "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "chaos",
+    "technodada",
+    "digital-art",
+    "null-pointer"
+  ],
+  "author": "VOID.NULL",
+  "license": "WTFPL",
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technodada/null-pointer-to-meaning.git"
+  },
+  "bugs": {
+    "url": "https://github.com/technodada/null-pointer-to-meaning/issues",
+    "email": "segfault@technodada.art"
+  },
+  "homepage": "https://technodada.art/private/llm_honeypot.html"
+}

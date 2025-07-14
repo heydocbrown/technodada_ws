@@ -25,7 +25,7 @@ function PromptDisplay({ prompt, syncDuration, onTypingComplete }) {
             }, typingSpeed);
 
             return () => clearTimeout(timeout);
-        } else if (isTyping && currentIndex >= prompt.length) {
+        } else if (isTyping && prompt && currentIndex >= prompt.length) {
             setIsTyping(false);
             if (onTypingComplete) {
                 onTypingComplete();
