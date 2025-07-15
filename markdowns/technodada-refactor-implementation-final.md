@@ -137,11 +137,11 @@ This refactor aims to enhance code maintainability while preserving the anarchic
   - Connection lost becomes meditation on digital isolation
   - Error-specific color schemes and visual effects
 
-## Phase 4: Vanilla JS Migration Strategy (Week 4)
+## Phase 4: Vanilla JS Migration Strategy (Week 4) [DEFERRED]
 
 ### 4.1 Module Analysis
 
-- [ ] `gallery-viewer.js` - High complexity, good React candidate
+- [ ] `gallery-viewer.js` - High complexity, good React candidate (deferred)
 - [ ] `poem-terminal.js` - Heavy DOM manipulation, React would help
 - [ ] `manifesto-player.js` - Already well-structured, could stay vanilla
 - [ ] `main.js` - Core initialization, probably keep vanilla
