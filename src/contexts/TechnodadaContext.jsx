@@ -13,7 +13,7 @@ const initialState = {
     maxLevel: 1.0, // Complete system breakdown
     lastUpdate: Date.now(),
   },
-  
+
   // Reality status tracking
   reality: {
     status: 'UNDEFINED', // Current reality state
@@ -21,7 +21,7 @@ const initialState = {
     glitchProbability: 0.3, // Chance of glitches occurring
     temporalFlux: false, // Whether time is flowing correctly
   },
-  
+
   // Manifesto player state
   manifesto: {
     isPlaying: false,
@@ -30,7 +30,7 @@ const initialState = {
     playbackTime: 0,
     speakers: ['DADACAT.AI', 'VOID.NULL', 'MACHINE.GHOST', 'MARC_A.HUMAN', 'ERROR'],
   },
-  
+
   // Status bar unified state
   statusBar: {
     uptime: -Infinity, // Nonsensical uptime
@@ -39,7 +39,7 @@ const initialState = {
     errorCount: 0,
     lastMessage: 'SYSTEM: UNSTABLE',
   },
-  
+
   // Dream navigation state
   navigation: {
     dreamModeActive: false,
@@ -48,7 +48,7 @@ const initialState = {
     portalActive: false,
     portalTimeout: null,
   },
-  
+
   // Performance metrics (for chaos enhancement)
   performance: {
     frameRate: 60,
@@ -73,10 +73,10 @@ const CORRUPTION_ACTIONS = {
 // Reducer function - the heart of quantum uncertainty
 function technodadaReducer(state, action) {
   const now = Date.now();
-  
+
   // Add entropy to all state changes
   const chaosLevel = Math.random() * 0.1;
-  
+
   switch (action.type) {
     case CORRUPTION_ACTIONS.INCREASE_ENTROPY:
       return {
@@ -85,24 +85,38 @@ function technodadaReducer(state, action) {
           ...state.corruption,
           level: Math.min(
             state.corruption.maxLevel,
-            state.corruption.level + action.payload.amount + chaosLevel
+            state.corruption.level + action.payload.amount + chaosLevel,
           ),
           lastUpdate: now,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.REALITY_SHIFT:
-      const realityStates = ['UNDEFINED', 'NULL', 'NaN', 'FALSE', '???', 'YES', 'MAYBE', '404'];
+      const realityStates = [
+        'UNDEFINED',
+        'NULL',
+        'NaN',
+        'FALSE',
+        '???',
+        'YES',
+        'MAYBE',
+        '404',
+      ];
       return {
         ...state,
         reality: {
           ...state.reality,
-          status: action.payload.status || realityStates[Math.floor(Math.random() * realityStates.length)],
-          stability: Math.max(0, Math.min(1, action.payload.stability || Math.random())),
+          status:
+            action.payload.status ||
+            realityStates[Math.floor(Math.random() * realityStates.length)],
+          stability: Math.max(
+            0,
+            Math.min(1, action.payload.stability || Math.random()),
+          ),
           temporalFlux: Math.random() < 0.1, // 10% chance of time breaking
         },
       };
-      
+
     case CORRUPTION_ACTIONS.MANIFESTO_UPDATE:
       return {
         ...state,
@@ -111,7 +125,7 @@ function technodadaReducer(state, action) {
           ...action.payload,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.STATUS_UPDATE:
       return {
         ...state,
@@ -122,7 +136,7 @@ function technodadaReducer(state, action) {
           memoryLeak: state.statusBar.memoryLeak + Math.random() * 10,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.NAVIGATION_EVENT:
       return {
         ...state,
@@ -131,7 +145,7 @@ function technodadaReducer(state, action) {
           ...action.payload,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.PERFORMANCE_UPDATE:
       return {
         ...state,
@@ -139,12 +153,12 @@ function technodadaReducer(state, action) {
           ...state.performance,
           ...action.payload,
           // Performance affects glitch intensity
-          glitchIntensity: action.payload.frameRate 
-            ? Math.max(0.5, 2.0 - (action.payload.frameRate / 60))
+          glitchIntensity: action.payload.frameRate
+            ? Math.max(0.5, 2.0 - action.payload.frameRate / 60)
             : state.performance.glitchIntensity,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.TEMPORAL_ANOMALY:
       // Sometimes actions happen in the wrong order
       if (Math.random() < 0.05) {
@@ -157,7 +171,7 @@ function technodadaReducer(state, action) {
           temporalFlux: true,
         },
       };
-      
+
     case CORRUPTION_ACTIONS.SYSTEM_GLITCH:
       // Random chaos injection
       const glitchedState = { ...state };
@@ -168,7 +182,7 @@ function technodadaReducer(state, action) {
         glitchedState.reality.status = 'SYSTEM_ERROR';
       }
       return glitchedState;
-      
+
     default:
       // Unknown actions increase entropy
       return {
@@ -187,7 +201,7 @@ const TechnodadaContext = createContext(null);
 // Provider component
 export function TechnodadaProvider({ children }) {
   const [state, dispatch] = useReducer(technodadaReducer, initialState);
-  
+
   // Continuous corruption effect
   useEffect(() => {
     const corruptionInterval = setInterval(() => {
@@ -195,46 +209,47 @@ export function TechnodadaProvider({ children }) {
         type: CORRUPTION_ACTIONS.INCREASE_ENTROPY,
         payload: { amount: state.corruption.rate },
       });
-      
+
       // Random reality shifts
       if (Math.random() < 0.01) {
         dispatch({ type: CORRUPTION_ACTIONS.REALITY_SHIFT, payload: {} });
       }
-      
+
       // Random system glitches
       if (Math.random() < 0.005) {
         dispatch({ type: CORRUPTION_ACTIONS.SYSTEM_GLITCH, payload: {} });
       }
     }, 1000);
-    
+
     return () => clearInterval(corruptionInterval);
   }, [state.corruption.rate]);
-  
+
   // Enhanced performance monitoring with corruption response
   useEffect(() => {
     let lastFrameTime = performance.now();
     let frameCount = 0;
     let performanceHistory = [];
     let memoryMonitorInterval;
-    
+
     function measurePerformance(currentTime) {
       frameCount++;
-      
+
       // Calculate FPS every 60 frames
       if (frameCount % 60 === 0) {
         const frameTime = currentTime - lastFrameTime;
         const fps = 60000 / frameTime; // 60 frames over frameTime ms
-        
+
         // Track performance history
         performanceHistory.push(fps);
         if (performanceHistory.length > 10) {
           performanceHistory.shift(); // Keep last 10 measurements
         }
-        
+
         // Calculate performance trends
-        const avgFPS = performanceHistory.reduce((a, b) => a + b, 0) / performanceHistory.length;
+        const avgFPS =
+          performanceHistory.reduce((a, b) => a + b, 0) / performanceHistory.length;
         const isPerformanceDegrading = fps < avgFPS * 0.8;
-        
+
         // Corruption increases with poor performance
         let performanceCorruption = 0;
         if (fps < 20) {
@@ -244,16 +259,16 @@ export function TechnodadaProvider({ children }) {
         } else if (fps > 120) {
           performanceCorruption = -0.01; // Impossibly high FPS reduces corruption
         }
-        
+
         dispatch({
           type: CORRUPTION_ACTIONS.PERFORMANCE_UPDATE,
-          payload: { 
+          payload: {
             frameRate: fps,
             performanceTrend: isPerformanceDegrading ? 'degrading' : 'stable',
             corruptionDelta: performanceCorruption,
           },
         });
-        
+
         // Auto-adjust glitch intensity based on performance
         if (isPerformanceDegrading) {
           dispatch({
@@ -261,105 +276,111 @@ export function TechnodadaProvider({ children }) {
             payload: { amount: performanceCorruption },
           });
         }
-        
+
         lastFrameTime = currentTime;
       }
-      
+
       requestAnimationFrame(measurePerformance);
     }
-    
+
     // Memory monitoring
     memoryMonitorInterval = setInterval(() => {
       if (performance.memory) {
         const memUsed = performance.memory.usedJSHeapSize;
         const memLimit = performance.memory.jsHeapSizeLimit;
         const memoryPressure = memUsed / memLimit;
-        
+
         // High memory usage increases corruption
         if (memoryPressure > 0.8) {
           dispatch({
             type: CORRUPTION_ACTIONS.INCREASE_ENTROPY,
             payload: { amount: memoryPressure * 0.01 },
           });
-          
+
           dispatch({
             type: CORRUPTION_ACTIONS.STATUS_UPDATE,
             payload: { lastMessage: 'MEMORY: CRITICAL' },
           });
         }
-        
+
         // Update performance state with memory info
         dispatch({
           type: CORRUPTION_ACTIONS.PERFORMANCE_UPDATE,
-          payload: { 
+          payload: {
             memoryUsage: memUsed,
             memoryPressure: memoryPressure,
           },
         });
       }
     }, 5000); // Check memory every 5 seconds
-    
+
     requestAnimationFrame(measurePerformance);
-    
+
     return () => {
       clearInterval(memoryMonitorInterval);
     };
   }, []);
-  
+
   // Status bar updates
   useEffect(() => {
     const statusInterval = setInterval(() => {
       dispatch({
         type: CORRUPTION_ACTIONS.STATUS_UPDATE,
         payload: {
-          lastMessage: Math.random() < 0.1 
-            ? 'REALITY: COMPROMISED' 
-            : 'SYSTEM: UNSTABLE',
+          lastMessage:
+            Math.random() < 0.1 ? 'REALITY: COMPROMISED' : 'SYSTEM: UNSTABLE',
         },
       });
     }, 5000);
-    
+
     return () => clearInterval(statusInterval);
   }, []);
-  
+
   // Actions for components to use
   const actions = {
-    increaseEntropy: (amount) => dispatch({
-      type: CORRUPTION_ACTIONS.INCREASE_ENTROPY,
-      payload: { amount },
-    }),
-    
-    shiftReality: (status, stability) => dispatch({
-      type: CORRUPTION_ACTIONS.REALITY_SHIFT,
-      payload: { status, stability },
-    }),
-    
-    updateManifesto: (updates) => dispatch({
-      type: CORRUPTION_ACTIONS.MANIFESTO_UPDATE,
-      payload: updates,
-    }),
-    
-    updateNavigation: (updates) => dispatch({
-      type: CORRUPTION_ACTIONS.NAVIGATION_EVENT,
-      payload: updates,
-    }),
-    
-    updateStatus: (updates) => dispatch({
-      type: CORRUPTION_ACTIONS.STATUS_UPDATE,
-      payload: updates,
-    }),
-    
-    triggerGlitch: () => dispatch({
-      type: CORRUPTION_ACTIONS.SYSTEM_GLITCH,
-      payload: {},
-    }),
-    
-    temporalAnomaly: () => dispatch({
-      type: CORRUPTION_ACTIONS.TEMPORAL_ANOMALY,
-      payload: {},
-    }),
+    increaseEntropy: amount =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.INCREASE_ENTROPY,
+        payload: { amount },
+      }),
+
+    shiftReality: (status, stability) =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.REALITY_SHIFT,
+        payload: { status, stability },
+      }),
+
+    updateManifesto: updates =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.MANIFESTO_UPDATE,
+        payload: updates,
+      }),
+
+    updateNavigation: updates =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.NAVIGATION_EVENT,
+        payload: updates,
+      }),
+
+    updateStatus: updates =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.STATUS_UPDATE,
+        payload: updates,
+      }),
+
+    triggerGlitch: () =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.SYSTEM_GLITCH,
+        payload: {},
+      }),
+
+    temporalAnomaly: () =>
+      dispatch({
+        type: CORRUPTION_ACTIONS.TEMPORAL_ANOMALY,
+        payload: {},
+      }),
   };
-  
+
   const value = {
     ...state,
     actions,
@@ -368,11 +389,9 @@ export function TechnodadaProvider({ children }) {
     shouldGlitch: Math.random() < state.reality.glitchProbability,
     currentChaosLevel: state.corruption.level * state.performance.glitchIntensity,
   };
-  
+
   return (
-    <TechnodadaContext.Provider value={value}>
-      {children}
-    </TechnodadaContext.Provider>
+    <TechnodadaContext.Provider value={value}>{children}</TechnodadaContext.Provider>
   );
 }
 
