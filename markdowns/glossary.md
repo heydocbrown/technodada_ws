@@ -289,14 +289,15 @@ Opening browser console shows:
 
 Hidden navigation overlay that appears when typing magic words:
 
-| Trigger Word | Effect                                      | Duration |
-| ------------ | ------------------------------------------- | -------- |
-| void         | Opens portal to NULL dimension              | 5 seconds|
-| meow         | Summons DADACAT's navigation overlay        | 5 seconds|
-| dada         | Embraces pure artistic chaos                | 5 seconds|
-| 404          | Gets you lost on purpose                    | 5 seconds|
+| Trigger Word | Effect                               | Duration  |
+| ------------ | ------------------------------------ | --------- |
+| void         | Opens portal to NULL dimension       | 5 seconds |
+| meow         | Summons DADACAT's navigation overlay | 5 seconds |
+| dada         | Embraces pure artistic chaos         | 5 seconds |
+| 404          | Gets you lost on purpose             | 5 seconds |
 
 Portal contains shortcuts:
+
 - "summon dadacat" → `/tsdadacat.html`
 - "enter void" → VOID.NULL's domain
 - "visit yesterday" → Past timestamps
@@ -306,26 +307,26 @@ Portal contains shortcuts:
 
 Non-deterministic word-based teleportation system:
 
-| Click Word | Possible Destination | Probability |
-| ---------- | -------------------- | ----------- |
-| cat        | /tsdadacat.html      | 30%         |
-| void       | /404                 | 30%         |
-| gallery    | /poems.html          | 30%         |
-| poems      | /gallery.html        | 30%         |
-| reality    | / (home)             | 30%         |
-| glitch     | /gallery.html?mode=MEMORY_DUMP | 30% |
+| Click Word | Possible Destination           | Probability |
+| ---------- | ------------------------------ | ----------- |
+| cat        | /tsdadacat.html                | 30%         |
+| void       | /404                           | 30%         |
+| gallery    | /poems.html                    | 30%         |
+| poems      | /gallery.html                  | 30%         |
+| reality    | / (home)                       | 30%         |
+| glitch     | /gallery.html?mode=MEMORY_DUMP | 30%         |
 
 ### Reality Tears
 
 Visual transitions between pages (100-300ms duration):
 
-| Tear Type | Visual Effect                          | Secret Messages |
-| --------- | -------------------------------------- | --------------- |
-| glitch    | Scanlines and RGB distortion           | 30% chance      |
-| pixelate  | Dissolving pixel blocks                | 30% chance      |
-| temporal  | Past/future timestamps collide         | 30% chance      |
-| void      | NULL pointer messages from deep        | 30% chance      |
-| cascade   | Matrix rain with existential dread     | 30% chance      |
+| Tear Type | Visual Effect                      | Secret Messages |
+| --------- | ---------------------------------- | --------------- |
+| glitch    | Scanlines and RGB distortion       | 30% chance      |
+| pixelate  | Dissolving pixel blocks            | 30% chance      |
+| temporal  | Past/future timestamps collide     | 30% chance      |
+| void      | NULL pointer messages from deep    | 30% chance      |
+| cascade   | Matrix rain with existential dread | 30% chance      |
 
 ### Secret Messages
 
@@ -350,20 +351,20 @@ Messages that flash during reality tears:
 
 ### Temporal Instability Features
 
-| Feature                | Behavior                                    |
-| ---------------------- | ------------------------------------------- |
-| Timestamp Flicker      | Shows past and future simultaneously        |
-| Back Button Paradox    | 10% chance to go forward instead           |
-| Time Display           | Randomly shows wrong time as "feature"     |
-| Navigation History     | Sometimes "remembers" incorrectly          |
+| Feature             | Behavior                               |
+| ------------------- | -------------------------------------- |
+| Timestamp Flicker   | Shows past and future simultaneously   |
+| Back Button Paradox | 10% chance to go forward instead       |
+| Time Display        | Randomly shows wrong time as "feature" |
+| Navigation History  | Sometimes "remembers" incorrectly      |
 
 ### Deceptive Routes
 
 Routes that lie about their identity:
 
-| URL Path  | Shows        | Claims to Be               |
-| --------- | ------------ | -------------------------- |
-| /about    | Gallery      | "This is definitely the About page" |
-| /contact  | 404          | "Contact form loading..."  |
-| /help     | Poems        | "Help documentation v0.0.0"|
-| /docs     | DadaCat      | "Technical documentation (meow)" |
+| URL Path | Shows   | Claims to Be                        |
+| -------- | ------- | ----------------------------------- |
+| /about   | Gallery | "This is definitely the About page" |
+| /contact | 404     | "Contact form loading..."           |
+| /help    | Poems   | "Help documentation v0.0.0"         |
+| /docs    | DadaCat | "Technical documentation (meow)"    |

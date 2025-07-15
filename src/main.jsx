@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+// Import global context provider
+import { TechnodadaProvider } from './contexts/TechnodadaContext.jsx';
+import { NetworkArtDisplay } from './components/NetworkArtDisplay.jsx';
+
 // Import all app components
 import App from './apps/App.jsx';
 import App2 from './apps/App2.jsx';
@@ -31,6 +35,11 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>{getAppComponent()}</React.StrictMode>,
+    <React.StrictMode>
+      <TechnodadaProvider>
+        {getAppComponent()}
+        <NetworkArtDisplay />
+      </TechnodadaProvider>
+    </React.StrictMode>,
   );
 } // trigger redeploy

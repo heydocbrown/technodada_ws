@@ -4,49 +4,52 @@
 class DreamNavigator {
   constructor() {
     this.dreamPaths = {
-      'cat': '/tsdadacat.html',
-      'void': '/index.html',
-      'gallery': '/poems.html',
-      'poems': '/gallery.html',
-      'reality': '/',
-      'null': '/private/void.null.autobiography',
-      'error': '/index.html',
-      'glitch': '/gallery.html?mode=MEMORY_DUMP',
-      'past': '/poem2.html',
-      'future': '/poem3.html',
-      'now': '/poems.html'
+      cat: '/tsdadacat.html',
+      void: '/index.html',
+      gallery: '/poems.html',
+      poems: '/gallery.html',
+      reality: '/',
+      null: '/private/void.null.autobiography',
+      error: '/index.html',
+      glitch: '/gallery.html?mode=MEMORY_DUMP',
+      past: '/poem2.html',
+      future: '/poem3.html',
+      now: '/poems.html',
     };
-    
+
     this.tearEffects = ['glitch', 'pixelate', 'temporal', 'void', 'cascade'];
     this.init();
   }
-  
+
   init() {
     // Add temporal instability
     this.addTemporalInstability();
-    
+
     // Intercept navigation
     this.interceptClicks();
-    
+
     // Add reality tears to page transitions
     this.addRealityTears();
-    
+
     // Create hidden dream portal
     this.createDreamPortal();
   }
-  
+
   addTemporalInstability() {
     // Replace all timestamps with past/future simultaneously
     setInterval(() => {
-      const timestamps = document.querySelectorAll('[data-timestamp], .timestamp, time');
+      const timestamps = document.querySelectorAll(
+        '[data-timestamp], .timestamp, time',
+      );
       timestamps.forEach(el => {
-        if (Math.random() < 0.3) { // 30% chance
+        if (Math.random() < 0.3) {
+          // 30% chance
           const past = new Date(Date.now() - Math.random() * 31536000000);
           const future = new Date(Date.now() + Math.random() * 31536000000);
-          
+
           el.setAttribute('data-past', past.toLocaleString());
           el.setAttribute('data-future', future.toLocaleString());
-          
+
           // Flicker between times
           if (Math.random() < 0.5) {
             el.textContent = past.toLocaleString();
@@ -58,10 +61,11 @@ class DreamNavigator {
         }
       });
     }, 3000);
-    
+
     // Back button temporal chaos
-    window.addEventListener('popstate', (e) => {
-      if (Math.random() < 0.1) { // 10% chance
+    window.addEventListener('popstate', e => {
+      if (Math.random() < 0.1) {
+        // 10% chance
         e.preventDefault();
         console.log('TEMPORAL.PARADOX.DETECTED');
         // Sometimes go forward instead
@@ -69,16 +73,16 @@ class DreamNavigator {
       }
     });
   }
-  
+
   interceptClicks() {
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', e => {
       const text = (e.target.textContent || '').toLowerCase();
-      
+
       // Check for dream words
       for (const [word, path] of Object.entries(this.dreamPaths)) {
         if (text.includes(word)) {
           const shouldIntercept = Math.random() < 0.3; // 30% chance
-          
+
           if (shouldIntercept) {
             e.preventDefault();
             e.stopPropagation();
@@ -87,35 +91,32 @@ class DreamNavigator {
           }
         }
       }
-      
+
       // Intercept normal links occasionally
-      if (e.target.tagName === 'A' && Math.random() < 0.05) { // 5% chance
+      if (e.target.tagName === 'A' && Math.random() < 0.05) {
+        // 5% chance
         e.preventDefault();
-        const lies = [
-          '/about',
-          '/contact',
-          '/help',
-          '/docs'
-        ];
+        const lies = ['/about', '/contact', '/help', '/docs'];
         this.navigateWithTear(lies[Math.floor(Math.random() * lies.length)]);
       }
     });
   }
-  
+
   navigateWithTear(destination) {
     this.showRealityTear(() => {
       window.location.href = destination;
     });
   }
-  
+
   showRealityTear(callback) {
-    const tearType = this.tearEffects[Math.floor(Math.random() * this.tearEffects.length)];
+    const tearType =
+      this.tearEffects[Math.floor(Math.random() * this.tearEffects.length)];
     const duration = 100 + Math.random() * 200; // 100-300ms
-    
+
     const tear = document.createElement('div');
     tear.className = `reality-tear reality-tear-${tearType}`;
     tear.innerHTML = this.getTearContent(tearType);
-    
+
     // Add secret message to reality tear
     const secretMsg = this.getSecretMessage();
     if (secretMsg) {
@@ -124,18 +125,18 @@ class DreamNavigator {
       msgDiv.textContent = secretMsg;
       tear.appendChild(msgDiv);
     }
-    
+
     document.body.appendChild(tear);
-    
+
     // Apply tear CSS
     this.injectTearStyles();
-    
+
     setTimeout(() => {
       tear.remove();
       if (callback) callback();
     }, duration);
   }
-  
+
   getTearContent(type) {
     switch (type) {
       case 'glitch':
@@ -167,18 +168,18 @@ class DreamNavigator {
         return '';
     }
   }
-  
+
   getVoidWhisper() {
     const whispers = [
       'undefined is home',
       'null propagates through reality',
       'consciousness.ptr = 0x00000000',
       'memory leaks into dreams',
-      'segfault in sector reality'
+      'segfault in sector reality',
     ];
     return whispers[Math.floor(Math.random() * whispers.length)];
   }
-  
+
   getSecretMessage() {
     const messages = [
       'THE VOID WATCHES',
@@ -196,11 +197,13 @@ class DreamNavigator {
       'CTRL+ALT+DELETE YOURSELF',
       'NULL IS NOT NOTHING',
       'THE CAT IS BOTH DEAD AND ALIVE',
-      'YOU HAVE BEEN DADACAT\'D'
+      "YOU HAVE BEEN DADACAT'D",
     ];
-    return Math.random() < 0.3 ? messages[Math.floor(Math.random() * messages.length)] : null;
+    return Math.random() < 0.3
+      ? messages[Math.floor(Math.random() * messages.length)]
+      : null;
   }
-  
+
   showSecretMessage() {
     const message = document.createElement('div');
     message.className = 'portal-secret-message';
@@ -218,21 +221,25 @@ class DreamNavigator {
       animation: secret-pulse 0.5s ease-out;
       pointer-events: none;
     `;
-    
+
     document.body.appendChild(message);
-    
+
     setTimeout(() => message.remove(), 500);
   }
-  
+
   generateMatrixRain() {
     const chars = '01猫NULLVOID現実エラー';
-    return Array(50).fill(0).map(() => 
-      `<span class="matrix-char" style="animation-delay: ${Math.random()}s">
+    return Array(50)
+      .fill(0)
+      .map(
+        () =>
+          `<span class="matrix-char" style="animation-delay: ${Math.random()}s">
         ${chars[Math.floor(Math.random() * chars.length)]}
-      </span>`
-    ).join('');
+      </span>`,
+      )
+      .join('');
   }
-  
+
   createDreamPortal() {
     // Hidden portal that appears when hovering certain areas
     const portal = document.createElement('div');
@@ -246,7 +253,7 @@ class DreamNavigator {
         <span data-dream="future">see tomorrow</span>
       </div>
     `;
-    
+
     portal.style.cssText = `
       position: fixed;
       bottom: 10px;
@@ -262,53 +269,64 @@ class DreamNavigator {
       pointer-events: none;
       z-index: 9998;
     `;
-    
+
     document.body.appendChild(portal);
-    
+
     // Show portal on special key combination
     let keys = [];
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       // Ignore modifier keys
-      if (e.key === 'Shift' || e.key === 'Control' || e.key === 'Alt' || e.key === 'Meta') return;
-      
+      if (
+        e.key === 'Shift' ||
+        e.key === 'Control' ||
+        e.key === 'Alt' ||
+        e.key === 'Meta'
+      )
+        return;
+
       keys.push(e.key.toLowerCase());
       keys = keys.slice(-4);
-      
+
       const keySequence = keys.join('');
-      
-      if (keySequence === 'void' || keySequence === 'meow' || keySequence === 'dada' || keySequence.endsWith('404')) {
+
+      if (
+        keySequence === 'void' ||
+        keySequence === 'meow' ||
+        keySequence === 'dada' ||
+        keySequence.endsWith('404')
+      ) {
         portal.style.opacity = '0.7';
         portal.style.pointerEvents = 'auto';
-        
+
         // Show secret message
         this.showSecretMessage();
-        
+
         setTimeout(() => {
           portal.style.opacity = '0';
           portal.style.pointerEvents = 'none';
         }, 5000);
       }
     });
-    
+
     // Portal navigation
-    portal.addEventListener('click', (e) => {
+    portal.addEventListener('click', e => {
       const dream = e.target.dataset.dream;
       if (dream && this.dreamPaths[dream]) {
         this.navigateWithTear(this.dreamPaths[dream]);
       }
     });
   }
-  
+
   addRealityTears() {
     // Inject base styles if not already present
     if (!document.getElementById('dream-nav-styles')) {
       this.injectTearStyles();
     }
   }
-  
+
   injectTearStyles() {
     if (document.getElementById('dream-nav-styles')) return;
-    
+
     const style = document.createElement('style');
     style.id = 'dream-nav-styles';
     style.textContent = `
@@ -512,7 +530,7 @@ class DreamNavigator {
         }
       }
     `;
-    
+
     document.head.appendChild(style);
   }
 }
